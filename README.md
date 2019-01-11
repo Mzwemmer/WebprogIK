@@ -1,9 +1,12 @@
 #Samenvatting
+
 Wij gaan een site maken waarbij je je volledige bibliotheek van games kan opslaan en sorteren zodat je een beter overzicht krijgt wat je allemaal aan games bezit en wat je nog niet en wel al gespeeld hebt. Wat onze web applicatie uniek maakt is dat de gebruiker kan uitsorteren wat hij/zij al gespeeld heeft en wat nog niet binnen zijn eigen collectie. Dit geeft de gebruiker veel inzicht in zijn bibliotheek, want tegenwoordig zijn er veel verschillende distributieplatformen die allemaal niet goed samenwerken en de gebruiker geen overzicht meer houd.
+
 #Schetsen
 
 
 #Features
+
 Toegang tot een database(kunnen zoeken en sorteren op games)
 De mogelijkheid om een profiel aan te maken en in te loggen.
 De mogelijkheid om games op te slaan op je profiel.
@@ -12,9 +15,11 @@ De mogelijkheid om games uit te sorteren op 5 categorieën(currently playing, on
 Koppeling steam, csv, text file.
 
 #Minimum viable product
+
 Ons minimale product is een site waarbij de eerste 4 punten van onze features in werkende staat zijn. Dit zal ons dan de minimale eisen geven van de site. Het laatste punt is iets wat ons kan differentiëren van de andere sites die soortgelijke diensten leveren, maar is niet nodig voor een volledig werkende site.
 
 #Afhankelijkheden
+
 https://www.igdb.com/ is een database van alle games waarbij wij ook meteen een API key kunnen krijgen zonder kosten. Zodat wij deze database kunnen implementeren in onze website.
 
 Wij hebben alle features nodig die momenteel ook voor de website finance gebruikt worden.  Dus flask, bootstrap, python, html, css en sql.

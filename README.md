@@ -8,12 +8,17 @@ https://drive.google.com/open?id=1pew27FYQ2A3Ubfq71C2OlBrCzHzbLZul
 
 # Features
 
-Toegang tot een database(kunnen zoeken en sorteren op games)
-De mogelijkheid om een profiel aan te maken en in te loggen.
-De mogelijkheid om games op te slaan op je profiel.
-De mogelijkheid om games te sturen naar mensen als tips.
-De mogelijkheid om games uit te sorteren op 5 categorieën(currently playing, on hold, dropped, completed, wishlist)
-Koppeling steam, csv, text file.
+- Toegang tot een database(kunnen zoeken en sorteren op games)
+
+- De mogelijkheid om een profiel aan te maken en in te loggen.
+
+- De mogelijkheid om games op te slaan op je profiel.
+
+- De mogelijkheid om games te sturen naar mensen als tips.
+
+- De mogelijkheid om games uit te sorteren op 5 categorieën(currently playing, on hold, dropped, completed, wishlist)
+
+- Koppeling steam, csv, text file.
 
 # Minimum viable product
 

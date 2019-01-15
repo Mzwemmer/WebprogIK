@@ -1,0 +1,70 @@
+header {
+  border: 5px solid #2F4F4F;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: right;
+  background-color:#A9A9A9;
+  color:black;
+
+}
+
+body {
+    background-color: lightblue;
+}
+
+.button {
+    background-color: lightgray;
+    text-align: center;
+    font-size: 16px;
+    font-family:Tahoma;
+    margin: 10px 0px 0px 300px;
+
+    border-radius: 5px;
+    border: 2px solid #2F4F4F;
+}
+
+.input1{
+    font-family:Tahoma;
+    margin: 200px 0px 5px 625px;
+    border-radius: 5px;
+    border: 2px solid #2F4F4F;
+
+}
+
+.input2 {
+    font-family:Tahoma;
+    margin: 0px 0px 5px 625px;
+    border-radius: 5px;
+    border: 2px solid #2F4F4F;
+}
+
+.text {
+    text-align:center;
+}
+
+.container
+{
+    /* center contents */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
+}
+
+/* colors for navbar */
+.navbar-default .navbar-brand .blue
+{
+    color: #537fbe;
+}
+.navbar-default .navbar-brand .red
+{
+    color: #ea433b;
+}
+.navbar-default .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+.navbar-default .navbar-brand .green
+{
+    color: #2e944b;
+}

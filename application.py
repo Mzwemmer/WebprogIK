@@ -120,6 +120,37 @@ def register():
 def index():
     return render_template("index.html")
 
+@app.route("/allgames", methods=["GET", "POST"])
+@login_required
+def allgames():
+    return render_template("allgames.html")
+
+@app.route("/completed", methods=["GET", "POST"])
+@login_required
+def completed():
+    return render_template("completed.html")
+
+@app.route("/currently", methods=["GET", "POST"])
+@login_required
+def currently():
+    return render_template("currently.html")
+
+@app.route("/dropped", methods=["GET", "POST"])
+@login_required
+def dropped():
+    return render_template("dropped.html")
+
+@app.route("/onhold", methods=["GET", "POST"])
+@login_required
+def onhold():
+    return render_template("onhold.html")
+
+@app.route("/whishlist", methods=["GET", "POST"])
+@login_required
+def whishlist():
+    return render_template("whishlist.html")
+
+
 
 @app.route("/logout")
 def logout():
@@ -130,4 +161,3 @@ def logout():
 
     # redirect user to login form
     return redirect(url_for("login"))
-

@@ -27,7 +27,7 @@ Het veranderen van:
 	- Het e-mailadres ( def changeemail( ), POST ) Ook is er de mogelijkheid om je account te verwijderen ( def delete( ), POST). 
 
 # Models / helpers
-Onze models voor de website zien er als volgt uit: https://drive.google.com/open?id=1vZOMhCHNJrdikMvlCcmY1wgLePoVMWt6
+Onze models voor de website zien er als volgt uit: https://drive.google.com/open?id=1LZcyfCxwPlxFBKRQibIETPpYN05O_lt3
 
 In onze helpers.py moet in ieder geval staan:
 	-  def login_required( ): Deze functie zorgt ervoor dat de gebruiker alleen bij de meeste delen van de website kan komen zodra de gebruiker is ingelogd.

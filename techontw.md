@@ -27,6 +27,8 @@ Het veranderen van:
 	- Het e-mailadres ( def changeemail( ), POST ) Ook is er de mogelijkheid om je account te verwijderen ( def delete( ), POST). 
 
 # Models / helpers
+Onze models voor de website zien er als volgt uit: https://drive.google.com/open?id=1vZOMhCHNJrdikMvlCcmY1wgLePoVMWt6
+
 In onze helpers.py moet in ieder geval staan:
 	-  def login_required( ): Deze functie zorgt ervoor dat de gebruiker alleen bij de meeste delen van de website kan komen zodra de gebruiker is ingelogd.
 	- def lookup(name): Deze functie kijkt of de game in de database staat. Deze functie returnt een lijst met dictionaries er in met alle waardes van de games. Dit zijn waardes als name, rating en andere.

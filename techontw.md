@@ -32,15 +32,20 @@ In onze helpers.py moet in ieder geval staan:
 	- def lookup(name): Deze functie kijkt of de game in de database staat. Deze functie returnt een lijst met dictionaries er in met alle waardes van de games. Dit zijn waardes als name, rating en andere.
 	- def error(): deze functie returnt een error pagina als er iets fout gaat.
 	
-	- def checklogin(password, username): Deze functie checkt of de passwords en de username correct zijn. Dit wordt in helpers.py gezet zodat we al onze opzoek verzoeken voor de database in een apparte file hebben.
+	- def checklogin(password, username): Deze functie checkt of de passwords en de username correct zijn. 
+	Dit wordt in helpers.py gezet zodat we al onze opzoek verzoeken voor de database in een apparte file hebben.
 	
 	#Deze functie is nog niet zeker.
-	-def makedatabaseuser(user_id): Deze functie maakt een nieuwe database waar de user al zijn games in krijgt als een portfolio. Dit wordt individueel gedaan zodat de zoek snelheid van de user vergroot word.
+	-def makedatabaseuser(user_id): Deze functie maakt een nieuwe database waar de user al zijn games 
+	in krijgt als een portfolio. Dit wordt individueel gedaan zodat de zoek snelheid van de user vergroot word.
 	
 	- def checkregister(username, password, repeat, email): Deze functie checkt of alles op de registreer pagina goed is ingevuld.
 	
 	- def change(what, input, input_repeat): Deze functie checkt alle functies voor het veranderen van gebruikers informatie
 	
-	- def forgotpassword(username, email): Verstruurd een automatische email waarin een code wordt gestuurd voor de user zodat hij zijn wachtwoord kan resetten.
+	- def forgotpassword(username, email): Verstruurd een automatische email waarin een code wordt gestuurd voor 
+	de user zodat hij zijn wachtwoord kan resetten.
 	
-	-def changeforgotpassword(code, username, newpassword, repeatnewpassword): Deze functie kijkt of de code goed ingevoerd is en zo of de passwords kloppen. Als de code fout is wordt er opnieuw een code aangemaakt en mail verstuurd. (maximale mails moeten we nog even bekijken.)
+	-def changeforgotpassword(code, username, newpassword, repeatnewpassword): Deze functie kijkt of de code goed 
+	ingevoerd is en zo of de passwords kloppen. Als de code fout is wordt er opnieuw een code aangemaakt en 
+	mail verstuurd. (maximale mails moeten we nog even bekijken.)

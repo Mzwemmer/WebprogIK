@@ -1,8 +1,6 @@
-Technisch ontwerp
+# Technisch ontwerp
 
-Controllers
-
-Routes;
+# Routes;
 
 De website begint op de Login-pagina ( def login( ) ). Hier krijgt de gebruiker de mogelijkheid om in te loggen op de website door het invoeren van de gebruikersnaam en het wachtwoord gekoppeld aan die gebruikersnaam. Er is een link onder de input van wachtwoord die een route geeft naar de register-pagina ( def register( ) ) en een link die redirect naar een pagina voor wachtwoord vergeten. Deze pagina geeft een POST-request zodra er een bestaande input gegeven is en redirect de gebruiker dan naar de homepage.
 
@@ -28,7 +26,6 @@ Het veranderen van:
 	- Het wachtwoord	( redirect naar def forgot( )
 	- Het e-mailadres ( def changeemail( ), POST ) Ook is er de mogelijkheid om je account te verwijderen ( def delete( ), POST). 
 
-Models / helpers
+# Models / helpers
 In onze helpers.py moet in ieder geval staan:
-	-  def login_required( ):
-		deze functie zorgt ervoor dat de gebruiker alleen bij de meeste delen  			van de website kan komen zodra de gebruiker is ingelogd.
+	-  def login_required( ): deze functie zorgt ervoor dat de gebruiker alleen bij de meeste delen van de website kan komen zodra de gebruiker is ingelogd.

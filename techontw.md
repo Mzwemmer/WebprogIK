@@ -39,9 +39,11 @@ In onze helpers.py moet in ieder geval staan:
 	-def makedatabaseuser(user_id): Deze functie maakt een nieuwe database waar de user al zijn games 
 	in krijgt als een portfolio. Dit wordt individueel gedaan zodat de zoek snelheid van de user vergroot word.
 	
-	- def checkregister(username, password, repeat, email): Deze functie checkt of alles op de registreer pagina goed is ingevuld.
+	- def checkregister(username, password, repeat, email): Deze functie checkt of alles op de registreer 
+	pagina goed is ingevuld.
 	
-	- def change(what, input, input_repeat): Deze functie checkt alle functies voor het veranderen van gebruikers informatie
+	- def change(what, input, input_repeat): Deze functie checkt alle functies voor het veranderen van 
+	gebruikers informatie
 	
 	- def forgotpassword(username, email): Verstruurd een automatische email waarin een code wordt gestuurd voor 
 	de user zodat hij zijn wachtwoord kan resetten.

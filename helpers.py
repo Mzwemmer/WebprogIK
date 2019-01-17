@@ -35,11 +35,7 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-
-
-
 def lookup(name):
-    name = name
     url = 'https://api-v3.igdb.com/games/'
     headers = {'user-key': '663bdc9cdfcbb5aaae5a2a8a14b4d70a'}
     data = f'search "{name}"; fields name, rating;'
@@ -47,3 +43,18 @@ def lookup(name):
     if r == []:
         return None
     return r.json()
+
+def delete_account(userd_id):
+    db.execute("DELETE * FROM users WHERE id =:id", id = userd_id)
+    return "Done"
+
+def check_register(username, email, password):
+    email = db.execute("SELECT * FROM users WHERE email=:email", email=email)
+    username = db.execute("SELECT * FROM users WHERE username=:userame", username = username)
+    if len(email) == 1:
+        return apology("Email already registerd")
+    elif len(username) == 1:
+        return apology("Username already registerd")
+    else:
+        newUser = db.execute("INSERT INTO users (username, password, email) VALUES (:username, :password)",
+                             username=username, hash=pwd_context.hash(password), email = email)

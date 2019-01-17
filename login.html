@@ -7,20 +7,25 @@
 {% block main %}
 
     <form action="{{ url_for('login') }}" method="post">
+        <div class="text2">
+             ‏‏‎
+            <div>
+                <input autocomplete="off" autofocus class="input1" name="username" placeholder="Username" type="text"/>
+            </div>
+            <div>
+                <input class="input2" name="password" placeholder="Password" type="password"/>
+            </div>
+            <div>
+                <button class="button" type="submit">Log In</button>
+            </div>
+            <div class="text">
+            No account? Register <a style="text-decoration:none" href="{{ url_for('register') }}">here!</a>
+            </div>
+            <div class="text3">
+            Forgot <a style="text-decoration:none" href="{{ url_for('forgotpasw') }}">password?</a>
+            </div>
+        </div>
 
-        <div>
-            <input autocomplete="off" autofocus class="input1" name="username" placeholder="Username" type="text"/>
-        </div>
-        <div>
-            <input class="input2" name="password" placeholder="Password" type="password"/>
-        </div>
-        <div>
-            <button class="button" type="submit">Log In</button>
-        </div>
-        <div class="text">
-
-            No account? Register <a href="{{ url_for('register') }}">here!</a>
-        </div>
 
     </form>
 

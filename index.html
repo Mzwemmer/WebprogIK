@@ -5,17 +5,23 @@
 {% endblock %}
 
 {% block main %}
+<form action="{{ url_for('index') }}" method="post">
 
-    <form action="{{ url_for('index') }}" method="post">
-        <header>
-            Header
-        </header>
+    <table>
+        <tr>
+            <th> Name </th>
+            <th> Rating </th>
+        </tr>
 
-        <body>
-            Testing
-        </body>
-    </form>
+        {%for game in games %}
+        <tr>
+            <td>{{ game.cover }} </td>
+            <td>{{ game.name }}</td>
+            <td>{{ game.rating }}</td>
+            <td>{{ game.status }}</td>
+            <td>{{ game.userrating }}</td>
 
+    </table>
 
-
+</form>
 {% endblock %}

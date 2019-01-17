@@ -65,8 +65,6 @@ def login():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    @app.route("/register", methods=["GET", "POST"])
-def register():
     """Register user."""
     # forget any user_id
     session.clear()

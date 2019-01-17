@@ -73,31 +73,42 @@ def register():
     if request.method == "POST":
         # ensure username was submitted
         if not request.form.get("username"):
-            return apology("Must provide username")
+            return apology("must provide username")
+
         # ensure password was submitted
         elif not request.form.get("password"):
-            return apology("Must provide password")
+            return apology("must provide password")
+
         # ensure the password was re-entered
         elif not request.form.get("confirmation"):
-            return apology("Must provide confirmation")
-        elif not request.form.get("email"):
-            return apology("Must provide an email")
-        elif "@" not in request.form.get("email"):
-            return apology("Must provide a valid email")
+            return apology("must provide confirmation")
+
         # raise an error if the password and username dont match
         if request.form.get("password") != request.form.get("confirmation"):
-            return apology("The passwords don't match")
+            return apology("the passwords don't match")
 
-        username = request.form.get("username")
-        email = request.form.get("email")
-        password = request.form.get("password")
+        #hash the password and enter it in the database
+        userlistdict = db.execute("SELECT username FROM users")
+        userlist = []
+        for userdict in userlistdict:
+            for x in userdict:
+                userlist.append(userdict[x])
 
-        check = check_register(username, email, password)
+        if request.form.get("username") in userlist:
+            return apology("username already taken")
 
-        if check == "Done":
-            return redirect(url_for("login"))
-        else:
-            return apology("Oops something went wrong.")
+        rows = db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)", username=request.form.get("username"),  hash=pwd_context.hash(request.form.get("password")))
+
+
+        # query database for username
+        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+
+        # remember which user has logged in
+        session["user_id"] = rows[0]["id"]
+
+        # redirect user to home page
+        return redirect(url_for("index"))
+
 
     else:
         return render_template("register.html")
@@ -105,10 +116,7 @@ def register():
 @app.route("/index", methods=["GET", "POST"])
 @login_required
 def index():
-
-    games = db.execute("SELECT * FROM games WHERE id=:id", id=session["user_id"])
-
-    return render_template("index.html", games=games)
+    return render_template("index.html")
 
 @app.route("/allgames", methods=["GET", "POST"])
 @login_required

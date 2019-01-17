@@ -50,12 +50,14 @@ def delete_account(userd_id):
     return "Done"
 
 def check_register(username, email, password):
-    email = db.execute("SELECT * FROM users WHERE email=:email", email=email)
-    username = db.execute("SELECT * FROM users WHERE username=:userame", username = username)
-    if len(email) == 1:
+    temp_email = db.execute("SELECT * FROM users WHERE email=:email", email=email)
+    temp_username = db.execute("SELECT * FROM users WHERE username=:username", username = username)
+    if len(temp_email) == 1:
         return apology("Email already registerd")
-    elif len(username) == 1:
+    elif len(temp_username) == 1:
         return apology("Username already registerd")
     else:
-        newUser = db.execute("INSERT INTO users (username, password, email) VALUES (:username, :password)",
+        newUser = db.execute("INSERT INTO users (username, hash, email) VALUES (:username, :hash, :email)",
                              username=username, hash=pwd_context.hash(password), email = email)
+
+    return "Done"

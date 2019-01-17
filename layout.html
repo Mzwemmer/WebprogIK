@@ -8,70 +8,53 @@
         <meta charset="utf-8"/>
         <meta content="initial-scale=1, width=device-width" name="viewport"/>
 
-        <!-- documentation at http://getbootstrap.com/, alternative themes at https://www.bootstrapcdn.com/bootswatch/ -->
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 
         <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
 
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
         <title>In-Matica: {% block title %}{% endblock %}</title>
 
     </head>
 
     <body>
+        <div class="topnav">
+            {% if session.user_id %}
 
-        <div class="container">
+                   <a href="{{ url_for('allgames') }}">All Games</a>
+                   <a href="{{ url_for('completed') }}">Completed</a>
+                   <a href="{{ url_for('currently') }}">Current</a>
+                   <a href="{{ url_for('onhold') }}">Hold</a>
+                   <a href="{{ url_for('dropped') }}">Dropped</a>
+                   <a href="{{ url_for('whishlist') }}">Wishlist</a>
+                   <a style="margin-left: 758px" href="{{ url_for('logout') }}">Logout</a>
 
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="{{ url_for('login') }}"><span class="red">In-Matica</span></a>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navbar">
-                        {% if session.user_id %}
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="{{ url_for('logout') }}">User Settings</a></li>
-                                <li><a href="{{ url_for('logout') }}">Log Out</a></li>
-                            </ul>
-                    </div>
-                    <div class="bar">
-                        <nav class="navbar navbar-dark bg-primary">
+            {% else %}
 
-                            <button type="button" class="btn btn-dark"><a href="{{ url_for('allgames') }}" class="btn btn-primary btn-lg" type="button">All games</a></button>
-                            <button type="button" class="btn btn-dark"><a href="{{ url_for('currently') }}"class="btn btn-primary btn-lg" type="button">Currently playing</a></button>
-                            <button type="button" class="btn btn-dark"><a href="{{ url_for('completed') }}"class="btn btn-primary btn-lg" type="button">Completed</a></button>
-                            <button type="button" class="btn btn-dark"><a href="{{ url_for('onhold') }}"class="btn btn-primary btn-lg" type="button">On hold</a></button>
-                            <button type="button" class="btn btn-dark"><a href="{{ url_for('dropped') }}"class="btn btn-primary btn-lg" type="button">Dropped</a></button>
-                            <button type="button" class="btn btn-dark"><a href="{{ url_for('whishlist') }}"class="btn btn-primary btn-lg" type="button">Whishlist</a></button>
+                <a href="{{ url_for('register') }}">Register</a></li>
+                <a href="{{ url_for('login') }}">Log In</a></li>
 
-                        </nav>
-                    </div>
-                        {% endif %}
 
-                </div>
-            </nav>
-
-            {% if get_flashed_messages() %}
-                <header>
-                    <div class="alert alert-info" role="alert">
-                        {{ get_flashed_messages() | join(" ") }}
-                    </div>
-                </header>
             {% endif %}
-
-            <main>
-                {% block main %}{% endblock %}
-            </main>
-
         </div>
+
+
+
+
+        {% if get_flashed_messages() %}
+            <header>
+                <div class="alert alert-info" role="alert">
+                    {{ get_flashed_messages() | join(" ") }}
+                </div>
+            </header>
+        {% endif %}
+
+        <main>
+            {% block main %}{% endblock %}
+        </main>
+
+
 
     </body>
 

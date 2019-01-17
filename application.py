@@ -146,7 +146,7 @@ def onhold():
 @app.route("/whishlist", methods=["GET", "POST"])
 @login_required
 def whishlist():
-    return render_template("whishlist.html")
+    return render_template("wishlist.html")
 
 @app.route("/forgotpasw", methods=["GET", "POST"])
 def forgotpasw():

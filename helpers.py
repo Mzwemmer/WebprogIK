@@ -2,10 +2,11 @@ import csv
 import urllib.request
 import json
 import requests
-
 from flask import redirect, render_template, request, session
 from functools import wraps
+from cs50 import SQL
 
+db = SQL("sqlite:///games.db")
 
 def apology(message, code=400):
     """Renders message as an apology to user."""

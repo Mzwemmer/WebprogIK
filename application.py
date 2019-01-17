@@ -105,7 +105,10 @@ def register():
 @app.route("/index", methods=["GET", "POST"])
 @login_required
 def index():
-    return render_template("index.html")
+
+    games = db.execute("SELECT * FROM games WHERE id=:id", id=session["user_id"])
+
+    return render_template("index.html", games=games)
 
 @app.route("/allgames", methods=["GET", "POST"])
 @login_required

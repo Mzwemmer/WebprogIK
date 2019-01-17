@@ -148,6 +148,25 @@ def onhold():
 def whishlist():
     return render_template("whishlist.html")
 
+@app.route("/forgotpasw", methods=["GET", "POST"])
+def forgotpasw():
+    # if user reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
+        # ensure username was submitted
+        if not request.form.get("username"):
+            return render_template("forgotpasw.html")
+
+        # ensure password was submitted
+        elif not request.form.get("email"):
+            return render_template("forgotpasw.html")
+
+        return render_template("send.html")
+    else:
+        return render_template("forgotpasw.html")
+
+@app.route("/send", methods=["GET", "POST"])
+def send():
+    return render.template("send.html")
 
 
 @app.route("/logout")

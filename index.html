@@ -6,22 +6,22 @@
 
 {% block main %}
 <form action="{{ url_for('index') }}" method="post">
+    <div class="middle">
+        <table>
+            <tr>
+                <th> Name </th>
+                <th> Rating </th>
+            </tr>
 
-    <table>
-        <tr>
-            <th> Name </th>
-            <th> Rating </th>
-        </tr>
-
-        {%for game in games %}
-        <tr>
-            <td>{{ game.cover }} </td>
-            <td>{{ game.name }}</td>
-            <td>{{ game.rating }}</td>
-            <td>{{ game.status }}</td>
-            <td>{{ game.userrating }}</td>
-
-    </table>
-
+            {%for game in games %}
+            <tr>
+                <td>{{ game.cover }} </td>
+                <td>{{ game.name }}</td>
+                <td>{{ game.rating }}</td>
+                <td>{{ game.status }}</td>
+                <td>{{ game.userrating }}</td>
+            {%endfor%}
+        </table>
+    </div>
 </form>
 {% endblock %}

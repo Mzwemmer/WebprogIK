@@ -1,9 +1,13 @@
 import csv
 import urllib.request
-
+import json
+import requests
 from flask import redirect, render_template, request, session
 from functools import wraps
+from cs50 import SQL
+from passlib.apps import custom_app_context as pwd_context
 
+db = SQL("sqlite:///games.db")
 
 def apology(message, code=400):
     """Renders message as an apology to user."""
@@ -33,83 +37,28 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-
-def lookup(symbol):
-    """Look up quote for symbol."""
-
-    # reject symbol if it starts with caret
-    if symbol.startswith("^"):
+def lookup(name):
+    url = 'https://api-v3.igdb.com/games/'
+    headers = {'user-key': '663bdc9cdfcbb5aaae5a2a8a14b4d70a'}
+    data = f'search "{name}"; fields name, rating;'
+    r = requests.get(url, headers = headers, json = {"key":"value"}, data = data)
+    if r == []:
         return None
+    return r.json()
 
-    # reject symbol if it contains comma
-    if "," in symbol:
-        return None
+def delete_account(user_id):
+    db.execute("DELETE * FROM users WHERE id =:id", id = user_id)
+    return "Done"
 
-    # query Yahoo for quote
-    # http://stackoverflow.com/a/21351911
-    try:
+def check_register(username, email, password):
+    temp_email = db.execute("SELECT * FROM users WHERE email=:email", email=email)
+    temp_username = db.execute("SELECT * FROM users WHERE username=:username", username = username)
+    if len(temp_email) == 1:
+        return apology("Email already registerd")
+    elif len(temp_username) == 1:
+        return apology("Username already registerd")
+    else:
+        newUser = db.execute("INSERT INTO users (username, hash, email) VALUES (:username, :hash, :email)",
+                             username=username, hash=pwd_context.hash(password), email = email)
 
-        # GET CSV
-        url = f"http://download.finance.yahoo.com/d/quotes.csv?f=snl1&s={symbol}"
-        webpage = urllib.request.urlopen(url)
-
-        # read CSV
-        datareader = csv.reader(webpage.read().decode("utf-8").splitlines())
-
-        # parse first row
-        row = next(datareader)
-
-        # ensure stock exists
-        try:
-            price = float(row[2])
-        except:
-            return None
-
-        # return stock's name (as a str), price (as a float), and (uppercased) symbol (as a str)
-        return {
-            "name": row[1],
-            "price": price,
-            "symbol": row[0].upper()
-        }
-
-    except:
-        pass
-
-    # query Alpha Vantage for quote instead
-    # https://www.alphavantage.co/documentation/
-    try:
-
-        # GET CSV
-        url = f"https://www.alphavantage.co/query?apikey=NAJXWIA8D6VN6A3K&datatype=csv&function=TIME_SERIES_INTRADAY&interval=1min&symbol={symbol}"
-        webpage = urllib.request.urlopen(url)
-
-        # parse CSV
-        datareader = csv.reader(webpage.read().decode("utf-8").splitlines())
-
-        # ignore first row
-        next(datareader)
-
-        # parse second row
-        row = next(datareader)
-
-        # ensure stock exists
-        try:
-            price = float(row[4])
-        except:
-            return None
-
-        # return stock's name (as a str), price (as a float), and (uppercased) symbol (as a str)
-        return {
-            "name": symbol.upper(), # for backward compatibility with Yahoo
-            "price": price,
-            "symbol": symbol.upper()
-        }
-
-    except:
-        return None
-
-
-def usd(value):
-    """Formats value as USD."""
-    return f"${value:,.2f}"
-
+    return "Done"

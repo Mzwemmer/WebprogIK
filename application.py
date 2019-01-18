@@ -137,10 +137,10 @@ def dropped():
 def onhold():
     return render_template("onhold.html")
 
-@app.route("/whishlist", methods=["GET", "POST"])
+@app.route("/wishlist", methods=["GET", "POST"])
 @login_required
-def whishlist():
-    return render_template("whishlist.html")
+def wishlist():
+    return render_template("wishlist.html")
 
 @app.route("/forgotpasw", methods=["GET", "POST"])
 def forgotpasw():

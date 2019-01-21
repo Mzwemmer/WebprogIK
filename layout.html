@@ -21,7 +21,7 @@
     <body>
         <div class="topnav">
             {% if session.user_id %}
-
+                   <a href="{{ url_for('addgames') }}">Add a game</a>
                    <a href="{{ url_for('allgames') }}">All Games</a>
                    <a href="{{ url_for('completed') }}">Completed</a>
                    <a href="{{ url_for('currently') }}">Current</a>

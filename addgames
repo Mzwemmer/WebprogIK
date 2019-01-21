@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Games
+{% endblock %}
+
+{% block main %}
+
+    <form action="{{ url_for('addgames') }}" method="post">
+        <div class="text2">
+             ‏‏‎
+            <div>
+                <input autocomplete="off" autofocus class="input1" name="addgame" placeholder="Game" type="text"/>
+            </div>
+            <div>
+                <button class="button" type="submit">Lookup</button>
+            </div>
+        </div>
+    </form>
+
+
+{% endblock %}

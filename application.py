@@ -110,6 +110,9 @@ def register():
 @app.route("/index", methods=["GET", "POST"])
 @login_required
 def index():
+    game_name = request.form.get("addgame")
+    jsonuser = lookup(game_name)
+
     if request.method == "POST":
         return render_template("index.html", json = jsonuser)
     else:

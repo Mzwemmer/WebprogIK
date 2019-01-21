@@ -1,7 +1,10 @@
 body {
     background-image: url("cs.jpg");
     background-repeat: no-repeat;
-    background-size: 1550px 850px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .button {

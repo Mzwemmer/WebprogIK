@@ -110,7 +110,21 @@ def register():
 @app.route("/index", methods=["GET", "POST"])
 @login_required
 def index():
-    return render_template("index.html")
+    if request.method == "POST":
+        return render_template("index.html", json = jsonuser)
+    else:
+        return render_template("index.html", json = jsonuser)
+
+@app.route("/addgames", methods=["GET","POST"])
+@login_required
+def addgames():
+    if request.method == "POST":
+        game_name = request.form.get("addgame")
+        jsonuser = lookup(game_name)
+
+        return redirect(url_for("index"))
+    else:
+        return render_template("addgames.html")
 
 @app.route("/allgames", methods=["GET", "POST"])
 @login_required

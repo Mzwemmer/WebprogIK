@@ -8,22 +8,25 @@
 <form action="{{ url_for('index') }}" method="post">
     <div class="middle">
         <table>
-            <div class="text">
-                <tr>
-                    <th> Name </th>
-                    <th> Rating </th>
-                </tr>
+            <tr>
+                <th> Name </th>
+                <th> Add </th>
+            </tr>
 
-                <tr>
-                {%for game in json %}
+            {%for game in json %}
+            <tr>
+                <th>{{ game }}</th>
+                <th> add </th>
+            </tr>
+            {%endfor%}
 
-                    <td>{{ game.name }}</td>
-                    <td>{{ game.rating }}</td>
+            <tr>
+                <th> Siege </th>
+                <th> add </th>
+            </tr>
 
-                {%endfor%}
-                </tr>
-            </div>
         </table>
     </div>
 </form>
 {% endblock %}
+

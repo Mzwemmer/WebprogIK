@@ -28,6 +28,9 @@ Session(app)
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///games.db")
 
+#make a global variable that holds the json that needs to be added to the library.
+jsonuser = list()
+
 @app.route("/", methods=["GET", "POST"])
 def login():
     """Log user in."""
@@ -110,13 +113,24 @@ def register():
 @app.route("/index", methods=["GET", "POST"])
 @login_required
 def index():
-    game_name = request.form.get("addgame")
-    jsonuser = lookup(game_name)
-
     if request.method == "POST":
-        return render_template("index.html", json = jsonuser)
+        temp = list()
+        for game in jsonuser:
+            try:
+                temp.append(game["name"])
+            except:
+                break
+
+        return render_template("index.html", json = temp)
     else:
-        return render_template("index.html", json = jsonuser)
+        temp = list()
+        for game in jsonuser:
+            try:
+                temp.append(game["name"])
+            except:
+                break
+
+        return render_template("index.html", json = temp)
 
 @app.route("/addgames", methods=["GET","POST"])
 @login_required

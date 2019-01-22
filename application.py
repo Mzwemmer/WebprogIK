@@ -126,7 +126,7 @@ def addgames():
         
         for game in jsonuser:
             if 'rating' not in game:
-                game["rating"] = "No rating known"
+                game["rating"] = "Rating unknown"
                 
         session['jsonsession'] = jsonuser
 

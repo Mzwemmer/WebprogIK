@@ -12,13 +12,10 @@ from passlib.apps import custom_app_context as pwd_context
 temp = lookup("Siege")
 print(temp)
 
-name = list()
-rating = list()
-id=session["user_id"]
+temp2 = list()
 for game in temp:
     try:
-        name.append(game["name"])
-        rating.append(game["rating"])
+        temp2.append(game["name"])
     except:
         break
 

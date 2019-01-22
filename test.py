@@ -19,5 +19,14 @@ for game in temp:
     except:
         break
 
+rating=list()
+for game in temp:
+    if 'rating' in game:
+        rating.append(game["rating"])
+    else:
+        rating.append("none")
+print(rating)
+
 for game in temp2:
     print(game)
+

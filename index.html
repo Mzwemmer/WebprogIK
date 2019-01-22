@@ -13,27 +13,24 @@
                 <th> Name </th>
                 <th> Rating </th>
             </tr>
-                {%for game in json %}
-                <div class="textaddgame">
-                <tr>
-                    <td style="text-align: left">{{ game.name }}</td>
-                    <td>{{ game.rating }}</td>
-                    {%endfor%}
 
-                </tr>
+            {%for game in json %}
 
-                <tr><td><br/></td></tr>
+            <tr class="textaddgame">
+                <td class="table1">{{ game.name }}</td>
+                <td class="table">{{ game.rating }}</td>
+            </tr>
 
-                <tr>
+            <tr><td><br/></td></tr>
+            {%endfor%}
 
-                    <td class="disclaimer" colspan="2">Disclaimer: If the game you're looking for is not in the list, make sure to specify the name</td>
+            <tr><td><br/></td></tr>
 
-                </tr>
+            <tr>
+                <td class="disclaimer" colspan="2">Disclaimer: If the game you're looking for is not in the list, make sure to specify the name</td>
+            </tr>
 
         </table>
-    </div>
-
-
     </div>
 </form>
 {% endblock %}

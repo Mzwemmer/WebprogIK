@@ -1,5 +1,6 @@
 body {
     background-image: url("cs.jpg");
+    background-attachment: fixed;
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -144,7 +145,8 @@ body {
 .textaddgame {
     font-family:Tahoma;
     color: white;
-    text-align:left;
+    text-align: left;
+    background-color: #0e1c33;
 }
 
 .titeladdgame {
@@ -157,4 +159,17 @@ body {
     font-family:Tahoma;
     color: #b2b2b2;
     font-size: 10px;
+}
+
+.table1{
+    height: 80px;
+    font-size: 21px;
+    font-weight: bold;
+
+}
+
+.table{
+    height: 80px;
+    font-size: 15px;
+
 }

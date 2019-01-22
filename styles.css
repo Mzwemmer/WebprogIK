@@ -128,3 +128,27 @@ body {
     background-color: hsla(217, 50%, 30%, 0.5);
     margin-left: 580px;
 }
+
+.addgames {
+    margin: 150px 0px 0px 20px;
+    border-left: 20px solid rgba(0, 0, 0, 0.3);
+    border-right: 20px solid rgba(0, 0, 0, 0.3);
+    width: 500px;
+    color:white;
+    text-align:center;
+    min-height: 250px;
+    background-color: hsla(217, 50%, 30%, 0.5);
+    margin-left: 580px;
+}
+
+.textaddgame {
+    font-family:Tahoma;
+    color: white;
+    text-align:left;
+}
+
+.titeladdgame {
+    font-family:Tahoma;
+    color: white;
+    font-size: 30px;
+}

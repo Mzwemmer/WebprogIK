@@ -28,9 +28,6 @@ Session(app)
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///games.db")
 
-#make a global variable that holds the json that needs to be added to the library.
-jsonuser = list()
-
 @app.route("/", methods=["GET", "POST"])
 def login():
     """Log user in."""

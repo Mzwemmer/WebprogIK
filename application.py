@@ -182,7 +182,7 @@ def forgotpasw():
 
 @app.route("/send", methods=["GET", "POST"])
 def send():
-    return render.template("send.html")
+    return render_template("send.html")
 
 
 @app.route("/logout")

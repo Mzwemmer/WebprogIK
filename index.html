@@ -6,7 +6,7 @@
 
 {% block main %}
 <form action="{{ url_for('index') }}" method="post">
-    <div class="addgames" style="width:50%">
+    <div class="addgames">
         <table>
 
             <tr class="titeladdgame">
@@ -16,17 +16,24 @@
                 {%for game in json %}
                 <div class="textaddgame">
                 <tr>
-
-                    <td>{{ game.name }}</td>
+                    <td style="text-align: left">{{ game.name }}</td>
                     <td>{{ game.rating }}</td>
+                    {%endfor%}
 
                 </tr>
-                </div>
-                {%endfor%}
+
+                <tr><td><br/></td></tr>
+
+                <tr>
+
+                    <td class="disclaimer" colspan="2">Disclaimer: If the game you're looking for is not in the list, make sure to specify the name</td>
+
+                </tr>
 
         </table>
     </div>
+
+
+    </div>
 </form>
 {% endblock %}
-
-

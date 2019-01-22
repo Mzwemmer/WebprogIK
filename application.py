@@ -123,6 +123,11 @@ def addgames():
     if request.method == "POST":
         game_name = request.form.get("addgame")
         jsonuser = lookup(game_name)
+        
+        for game in jsonuser:
+            if 'rating' not in game:
+                game["rating"] = "No rating known"
+                
         session['jsonsession'] = jsonuser
 
         return redirect(url_for("index"))

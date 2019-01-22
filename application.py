@@ -114,23 +114,11 @@ def register():
 @login_required
 def index():
     if request.method == "POST":
-        temp = list()
-        for game in jsonuser:
-            try:
-                temp.append(game["name"])
-            except:
-                break
-
-        return render_template("index.html", json = temp)
+        jsonuser = session.get('jsonsession')
+        return render_template("index.html", json = jsonuser)
     else:
-        temp = list()
-        for game in jsonuser:
-            try:
-                temp.append(game["name"])
-            except:
-                break
-
-        return render_template("index.html", json = temp)
+        jsonuser = session.get('jsonsession')
+        return render_template("index.html", json = jsonuser)
 
 @app.route("/addgames", methods=["GET","POST"])
 @login_required
@@ -138,6 +126,7 @@ def addgames():
     if request.method == "POST":
         game_name = request.form.get("addgame")
         jsonuser = lookup(game_name)
+        session['jsonsession'] = jsonuser
 
         return redirect(url_for("index"))
     else:

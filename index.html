@@ -8,20 +8,6 @@
 <form action="{{ url_for('index') }}" method="post">
 
     <div class="addgames">
-        <select class="button1">
-                <option value="completed">Completed</option>
-                <option value="current">Currently playing</option>
-                <option value="hold">On hold</option>
-                <option value="dropped">Dropped</option>
-                <option value="wishlist">Wishlist</option>
-        </select>
-        <div>
-            <input autocomplete="off" autofocus class="input1" name="number" placeholder="Number" type="number"/>
-        </div>
-
-        <div>
-            <input autocomplete="off" autofocus class="input1" name="rating" placeholder="Rating" type="number"/>
-        </div>
         <table>
 
             <tr class="titeladdgame">
@@ -50,6 +36,5 @@
         </table>
 
     </div>
-
 </form>
 {% endblock %}

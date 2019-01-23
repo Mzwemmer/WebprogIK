@@ -49,9 +49,13 @@ def check_register(username, email, password):
     return "Done"
 
 def addgame(game,user_id):
-    db.execute("INSERT INTO games (name, rating, cover, id) VALUES (:name, :rating, :cover, :user_id)",
-                name=game["name"], rating=game["rating"], cover=game["cover"], user_id=user_id)
-    
+    temp = db.execute("SELECT * FROM games WHERE user_id=:user_id AND name=:name", user_id=user_id, name=game["name"])
+    if temp:
+        return "error"
+    else:
+        db.execute("INSERT INTO games (name, rating, cover, user_id) VALUES (:name, :rating, :cover, :user_id)",
+                    name=game["name"], rating=game["rating"], cover=0 , user_id=user_id)
+        
 def get_allgames(user_id):
     games = db.execute("SELECT * FROM games WHERE user_id=:user_id", user_id = user_id)
     return games

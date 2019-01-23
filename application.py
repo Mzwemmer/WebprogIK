@@ -110,6 +110,7 @@ def register():
 @app.route("/index", methods=["GET", "POST"])
 @login_required
 def index():
+    if request.method == "POST":
         game_addnumber = int(request.form.get("number"))
         game_addrating = request.form.get("rating")
         if game_addrating == None:

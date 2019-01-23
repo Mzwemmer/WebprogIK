@@ -165,7 +165,6 @@ def allgames():
 
     i= 1
     for game in games:
-        game["rating"] = str(game["rating"]).split('.')[0]
         game["number"] = i
         i += 1
 
@@ -174,27 +173,67 @@ def allgames():
 @app.route("/completed", methods=["GET", "POST"])
 @login_required
 def completed():
-    return render_template("completed.html")
+    user_id = session["user_id"]
+    games = get_completedgames(user_id)
+
+    i= 1
+    for game in games:
+        game["number"] = i
+        i += 1
+
+    return render_template("completed.html", games = games)
 
 @app.route("/currently", methods=["GET", "POST"])
 @login_required
 def currently():
-    return render_template("currently.html")
+    user_id = session["user_id"]
+    games = get_currentgames(user_id)
+
+    i= 1
+    for game in games:
+        game["number"] = i
+        i += 1
+
+    return render_template("currently.html", games = games)
 
 @app.route("/dropped", methods=["GET", "POST"])
 @login_required
 def dropped():
-    return render_template("dropped.html")
+    user_id = session["user_id"]
+    games = get_droppedgames(user_id)
+
+    i= 1
+    for game in games:
+        game["number"] = i
+        i += 1
+
+    return render_template("dropped.html", games = games)
 
 @app.route("/onhold", methods=["GET", "POST"])
 @login_required
 def onhold():
-    return render_template("onhold.html")
+    user_id = session["user_id"]
+    games = get_onholdgames(user_id)
+
+    i= 1
+    for game in games:
+        game["number"] = i
+        i += 1
+
+    return render_template("onhold.html", games = games)
 
 @app.route("/wishlist", methods=["GET", "POST"])
 @login_required
 def wishlist():
-    return render_template("wishlist.html")
+    user_id = session["user_id"]
+    games = get_wishlistgames(user_id)
+
+    i= 1
+    for game in games:
+        game["number"] = i
+        i += 1
+
+    return render_template("wishlist.html", games = games)
 
 @app.route("/forgotpasw", methods=["GET", "POST"])
 def forgotpasw():

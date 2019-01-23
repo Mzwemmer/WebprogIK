@@ -8,6 +8,7 @@
 <form action="{{ url_for('index') }}" method="post">
 
     <div class="addgames">
+        <div class="text">Add to:</text>
         <select class="button1" name="status">
                 <option value="completed">Completed</option>
                 <option value="current">Currently playing</option>
@@ -47,7 +48,7 @@
             <tr><td><br/></td></tr>
 
             <tr>
-                <td class="disclaimer" colspan="2">Disclaimer: If the game you're looking for is not in the list, make sure to specify the name</td>
+                <td class="disclaimer" colspan="3">Disclaimer: If the game you're looking for is not in the list, make sure to specify the name</td>
             </tr>
 
         </table>

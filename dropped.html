@@ -7,6 +7,10 @@
 {% block main %}
 <form action="{{ url_for('dropped') }}" method="post">
 
+    <h1>
+        Games you've dropped
+    </h1>
+
     <div class="addgames">
         <table>
 
@@ -20,8 +24,8 @@
             {%for game in games %}
 
             <tr class="textaddgame">
-                <td class="table">{{ game.counter }} </button></td>
-                <td class="table">{{ game.name }}</td>
+                <td class="table">{{ game.counter }} </td>
+                <td class="table1">{{ game.name }}</td>
                 <td class="table">{{ game.rating }}</td>
                 <td class="table">{{ game.userrating }}</td>
             </tr>

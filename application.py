@@ -121,13 +121,16 @@ def index():
 @login_required
 def addgames():
     if request.method == "POST":
+        x=1
         game_name = request.form.get("addgame")
         jsonuser = lookup(game_name)
-        
+
         for game in jsonuser:
+            game["counter"] = x
             if 'rating' not in game:
                 game["rating"] = "Rating unknown"
-                
+            x+=1
+
         session['jsonsession'] = jsonuser
 
         return redirect(url_for("index"))

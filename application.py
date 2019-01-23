@@ -110,8 +110,19 @@ def register():
 @app.route("/index", methods=["GET", "POST"])
 @login_required
 def index():
-    if request.method == "POST":
         game_addnumber = int(request.form.get("number"))
+        game_addrating = request.form.get("rating")
+        if game_addrating == None:
+            pass
+        else:
+            game_addrating = int(game_addrating)
+
+        if game_addrating < 1 or game_addrating > 10:
+            game_addrating = None
+
+        game_addstatus = request.form.get("status")
+
+
         if game_addnumber < 1 or game_addnumber > 10:
             return render_template("index.html")
 
@@ -119,7 +130,8 @@ def index():
         jsonuser = session.get('jsonsession')
         game_add = jsonuser[game_addnumber]
         session_id = session["user_id"]
-        addgame(game_add,session_id)
+        addgame(game_add,session_id,game_addrating,game_addstatus)
+
         return redirect(url_for("allgames"))
     else:
         jsonuser = session.get('jsonsession')

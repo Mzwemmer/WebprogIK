@@ -149,7 +149,7 @@ def addgames():
 @login_required
 def allgames():
     user_id = session["user_id"]
-    games = getgames(user_id)
+    games = get_allgames(user_id)
 
     i= 1
     for game in games:

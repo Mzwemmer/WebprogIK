@@ -62,3 +62,7 @@ def check_register(username, email, password):
                              username=username, hash=pwd_context.hash(password), email = email)
 
     return "Done"
+
+def addgame(game,user_id):
+    db.execute("INSERT INTO games (name, rating, cover, id) VALUES (:name, :rating, :cover, :user_id)",
+                name=game["name"], rating=game["rating"], cover=game["cover"], user_id=user_id)

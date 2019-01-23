@@ -148,6 +148,15 @@ def addgames():
 @app.route("/allgames", methods=["GET", "POST"])
 @login_required
 def allgames():
+    user_id = session["user_id"]
+    games = getgames(user_id)
+
+    i= 1
+    for game in games:
+        game["number"] = i
+        i += 1
+
+    return render_template("allgames.html", games = games)
     return render_template("allgames.html")
 
 @app.route("/completed", methods=["GET", "POST"])

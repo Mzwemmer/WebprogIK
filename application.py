@@ -111,8 +111,12 @@ def register():
 @login_required
 def index():
     if request.method == "POST":
+        game_addnumber = request.form.get("number")
         jsonuser = session.get('jsonsession')
-        return render_template("index.html", json = jsonuser)
+        game_add = jsonuser[game_addnumber]
+        session_id = session.get(session["user_id"])
+        addgame(game_add,session_id)
+        return render_template("index.html")
     else:
         jsonuser = session.get('jsonsession')
         return render_template("index.html", json = jsonuser)

@@ -55,7 +55,8 @@ def addgame(game,user_id):
     else:
         db.execute("INSERT INTO games (name, rating, cover, user_id) VALUES (:name, :rating, :cover, :user_id)",
                     name=game["name"], rating=game["rating"], cover=0 , user_id=user_id)
-        
+
+
 def get_allgames(user_id):
     games = db.execute("SELECT * FROM games WHERE user_id=:user_id", user_id = user_id)
     return games

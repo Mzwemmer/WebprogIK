@@ -1,23 +1,36 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Currently playing
+    Currently Playing
 {% endblock %}
 
 {% block main %}
+<form action="{{ url_for('currently') }}" method="post">
 
-    <form action="{{ url_for('currently') }}" method="post">
-        <header>
-            Currently playing
-        </header>
+    <div class="addgames">
+        <table>
 
+            <tr class="titeladdgame">
+                <td>    </td>
+                <td> Name </td>
+                <td> Rating </td>
+                <td> User Rating</td>
+            </tr>
 
-        <p>
-            test
-        <p>
+            {%for game in games %}
 
-    </form>
+            <tr class="textaddgame">
+                <td class="table">{{ game.counter }} </button></td>
+                <td class="table">{{ game.name }}</td>
+                <td class="table">{{ game.rating }}</td>
+                <td class="table">{{ game.userrating }}</td>
+            </tr>
 
+            <tr><td><br/></td></tr>
+            {%endfor%}
 
+        </table>
 
+    </div>
+</form>
 {% endblock %}

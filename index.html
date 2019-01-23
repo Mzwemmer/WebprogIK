@@ -6,10 +6,15 @@
 
 {% block main %}
 <form action="{{ url_for('index') }}" method="post">
+
     <div class="addgames">
+        <div>
+            <input autocomplete="off" autofocus class="input1" name="number" placeholder="Number" type="number"/>
+        </div>
         <table>
 
             <tr class="titeladdgame">
+                <th>    </th>
                 <th> Name </th>
                 <th> Rating </th>
             </tr>
@@ -17,7 +22,7 @@
             {%for game in json %}
 
             <tr class="textaddgame">
-                <td class="table">{{ game.counter }}</td>
+                <td class="table">{{ game.counter }} </button></td>
                 <td class="table1">{{ game.name }}</td>
                 <td class="table">{{ game.rating }}</td>
             </tr>
@@ -32,6 +37,7 @@
             </tr>
 
         </table>
+
     </div>
 </form>
 {% endblock %}

@@ -122,7 +122,6 @@ def index():
 
         game_addstatus = request.form.get("status")
 
-
         if game_addnumber < 1 or game_addnumber > 10:
             return render_template("index.html")
 
@@ -165,6 +164,7 @@ def allgames():
 
     i= 1
     for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
         game["number"] = i
         i += 1
 
@@ -178,6 +178,7 @@ def completed():
 
     i= 1
     for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
         game["number"] = i
         i += 1
 
@@ -191,6 +192,7 @@ def currently():
 
     i= 1
     for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
         game["number"] = i
         i += 1
 
@@ -204,6 +206,7 @@ def dropped():
 
     i= 1
     for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
         game["number"] = i
         i += 1
 
@@ -217,6 +220,7 @@ def onhold():
 
     i= 1
     for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
         game["number"] = i
         i += 1
 
@@ -230,6 +234,7 @@ def wishlist():
 
     i= 1
     for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
         game["number"] = i
         i += 1
 

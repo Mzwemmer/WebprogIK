@@ -113,12 +113,11 @@ def index():
     if request.method == "POST":
         game_addnumber = int(request.form.get("number"))
         game_addrating = request.form.get("rating")
-        if game_addrating == None:
-            pass
-        else:
+        try:
             game_addrating = int(game_addrating)
-
-        if game_addrating < 1 or game_addrating > 10:
+            if game_addrating < 1 or game_addrating > 10:
+                game_addrating = None
+        except:
             game_addrating = None
 
         game_addstatus = request.form.get("status")
@@ -166,7 +165,6 @@ def allgames():
 
     i= 1
     for game in games:
-        game["rating"] = str(game["rating"]).split('.')[0]
         game["number"] = i
         i += 1
 

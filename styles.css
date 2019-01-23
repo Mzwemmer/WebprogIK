@@ -171,5 +171,14 @@ body {
 .table{
     height: 80px;
     font-size: 15px;
+    text-align: center;
 
+}
+
+h1{
+    background-color: hsla(217, 50%, 30%, 0.5);
+    text-align : center;
+    font-weight: bold;
+    font-family:Tahoma;
+    color: white;
 }

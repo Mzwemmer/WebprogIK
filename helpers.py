@@ -9,21 +9,6 @@ from passlib.apps import custom_app_context as pwd_context
 
 db = SQL("sqlite:///games.db")
 
-def apology(message, code=400):
-    """Renders message as an apology to user."""
-    def escape(s):
-        """
-        Escape special characters.
-
-        https://github.com/jacebrowning/memegen#special-characters
-        """
-        for old, new in [("-", "--"), (" ", "-"), ("_", "__"), ("?", "~q"),
-                         ("%", "~p"), ("#", "~h"), ("/", "~s"), ("\"", "''")]:
-            s = s.replace(old, new)
-        return s
-    return render_template("apology.html", top=code, bottom=escape(message)), code
-
-
 def login_required(f):
     """
     Decorate routes to require login.
@@ -54,9 +39,9 @@ def check_register(username, email, password):
     temp_email = db.execute("SELECT * FROM users WHERE email=:email", email=email)
     temp_username = db.execute("SELECT * FROM users WHERE username=:username", username = username)
     if len(temp_email) == 1:
-        return apology("Email already registerd")
+        return render_template("register.html")
     elif len(temp_username) == 1:
-        return apology("Username already registerd")
+        return render_template("register.html")
     else:
         newUser = db.execute("INSERT INTO users (username, hash, email) VALUES (:username, :hash, :email)",
                              username=username, hash=pwd_context.hash(password), email = email)

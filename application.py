@@ -115,7 +115,8 @@ def index():
 
         if game_addnumber < 1 or game_addnumber > 10:
             return render_template("index.html")
-
+           
+        game_addnumber -= 1
         jsonuser = session.get('jsonsession')
         game_add = jsonuser[game_addnumber]
         session_id = session.get(session["user_id"])
@@ -138,7 +139,7 @@ def addgames():
             if 'rating' not in game:
                 game["rating"] = "Rating unknown"
             x+=1
-
+        
         session['jsonsession'] = jsonuser
 
         return redirect(url_for("index"))

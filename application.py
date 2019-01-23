@@ -153,6 +153,7 @@ def allgames():
 
     i= 1
     for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
         game["number"] = i
         i += 1
 

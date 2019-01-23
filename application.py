@@ -112,16 +112,15 @@ def register():
 def index():
     if request.method == "POST":
         game_addnumber = int(request.form.get("number"))
-
         if game_addnumber < 1 or game_addnumber > 10:
             return render_template("index.html")
-           
+
         game_addnumber -= 1
         jsonuser = session.get('jsonsession')
         game_add = jsonuser[game_addnumber]
-        session_id = session.get(session["user_id"])
+        session_id = session["user_id"]
         addgame(game_add,session_id)
-        return render_template("index.html")
+        return redirect(url_for("allgames"))
     else:
         jsonuser = session.get('jsonsession')
         return render_template("index.html", json = jsonuser)
@@ -139,7 +138,7 @@ def addgames():
             if 'rating' not in game:
                 game["rating"] = "Rating unknown"
             x+=1
-        
+
         session['jsonsession'] = jsonuser
 
         return redirect(url_for("index"))
@@ -158,7 +157,6 @@ def allgames():
         i += 1
 
     return render_template("allgames.html", games = games)
-    return render_template("allgames.html")
 
 @app.route("/completed", methods=["GET", "POST"])
 @login_required

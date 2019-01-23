@@ -60,3 +60,24 @@ def addgame(game,user_id,rating,status):
 def get_allgames(user_id):
     games = db.execute("SELECT * FROM games WHERE user_id=:user_id", user_id = user_id)
     return games
+
+def get_completedgames(user_id):
+    games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status", user_id = user_id, status = "completed")
+    return games
+
+def get_droppedgames(user_id):
+    games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status", user_id = user_id, status = "dropped")
+    return games
+
+def get_currentgames(user_id):
+    games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status", user_id = user_id, status = "current")
+    return games
+
+def get_wishlistgames(user_id):
+    games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status", user_id = user_id, status = "wishlist")
+    return games
+
+def get_onholdgames(user_id):
+    games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status", user_id = user_id, status = "hold")
+    return games
+

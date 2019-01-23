@@ -40,18 +40,18 @@ def login():
 
         # ensure username was submitted
         if not request.form.get("username"):
-            return apology("must provide username")
+            return render_template("login")
 
         # ensure password was submitted
         elif not request.form.get("password"):
-            return apology("must provide password")
+            return render_template("login")
 
         # query database for username
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
         # ensure username exists and password is correct
         if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
-            return apology("invalid username and/or password")
+            return render_template("login")
 
         # remember which user has logged in
         session["user_id"] = rows[0]["id"]
@@ -73,25 +73,25 @@ def register():
     if request.method == "POST":
         # ensure username was submitted
         if not request.form.get("username"):
-            return apology("Must provide username")
+            return render_template("register.html")
 
         # ensure password was submitted
         elif not request.form.get("password"):
-            return apology("Must provide password")
+            return render_template("register.html")
 
         # ensure the password was re-entered
         elif not request.form.get("confirmation"):
-            return apology("Must provide confirmation")
+            return render_template("register.html")
 
         elif not request.form.get("email"):
-            return apology("Must provide an email")
+            return render_template("register.html")
 
         elif "@" not in request.form.get("email"):
-            return apology("Must provide a valid email")
+            return render_template("register.html")
 
         # raise an error if the password and username dont match
         if request.form.get("password") != request.form.get("confirmation"):
-            return apology("The passwords don't match")
+            returnrender_template("register.html")
 
         username = request.form.get("username")
         email = request.form.get("email")
@@ -102,7 +102,7 @@ def register():
         if check == "Done":
             return redirect(url_for("login"))
         else:
-            return apology("Oops something went wrong.")
+            return render_template("register.html")
 
     else:
         return render_template("register.html")
@@ -112,10 +112,10 @@ def register():
 def index():
     if request.method == "POST":
         game_addnumber = request.form.get("number")
-        
+
         if game_addnumber < 1 or game_addnumber > 10:
             return render_template("index.html")
-        
+
         jsonuser = session.get('jsonsession')
         game_add = jsonuser[game_addnumber]
         session_id = session.get(session["user_id"])

@@ -6,27 +6,50 @@
 
 {% block main %}
 <form action="{{ url_for('index') }}" method="post">
-    <div class="middle">
+
+    <div class="addgames">
+        <select class="button1">
+                <option value="completed">Completed</option>
+                <option value="current">Currently playing</option>
+                <option value="hold">On hold</option>
+                <option value="dropped">Dropped</option>
+                <option value="wishlist">Wishlist</option>
+        </select>
+        <div>
+            <input autocomplete="off" autofocus class="input1" name="number" placeholder="Number" type="number"/>
+        </div>
+
+        <div>
+            <input autocomplete="off" autofocus class="input1" name="rating" placeholder="Rating" type="number"/>
+        </div>
         <table>
-            <tr>
+
+            <tr class="titeladdgame">
+                <th>    </th>
                 <th> Name </th>
-                <th> Add </th>
+                <th> Rating </th>
             </tr>
 
             {%for game in json %}
-            <tr>
-                <th>{{ game }}</th>
-                <th> add </th>
+
+            <tr class="textaddgame">
+                <td class="table">{{ game.counter }} </button></td>
+                <td class="table1">{{ game.name }}</td>
+                <td class="table">{{ game.rating }}</td>
             </tr>
+
+            <tr><td><br/></td></tr>
             {%endfor%}
 
+            <tr><td><br/></td></tr>
+
             <tr>
-                <th> Siege </th>
-                <th> add </th>
+                <td class="disclaimer" colspan="2">Disclaimer: If the game you're looking for is not in the list, make sure to specify the name</td>
             </tr>
 
         </table>
+
     </div>
+
 </form>
 {% endblock %}
-

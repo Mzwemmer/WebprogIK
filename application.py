@@ -112,6 +112,10 @@ def register():
 def index():
     if request.method == "POST":
         game_addnumber = request.form.get("number")
+        
+        if game_addnumber < 1 or game_addnumber > 10:
+            return render_template("index.html")
+        
         jsonuser = session.get('jsonsession')
         game_add = jsonuser[game_addnumber]
         session_id = session.get(session["user_id"])

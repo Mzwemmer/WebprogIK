@@ -111,7 +111,7 @@ def register():
 @login_required
 def index():
     if request.method == "POST":
-        game_addnumber = request.form.get("number")
+        game_addnumber = int(request.form.get("number"))
 
         if game_addnumber < 1 or game_addnumber > 10:
             return render_template("index.html")

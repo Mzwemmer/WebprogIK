@@ -6,7 +6,9 @@
 
 {% block main %}
 <form action="{{ url_for('allgames') }}" method="post">
-
+    <h1>
+        All your games
+    </h1>
     <div class="addgames">
         <table>
 
@@ -22,7 +24,7 @@
 
             <tr class="textaddgame">
                 <td class="table">{{ game.counter }} </button></td>
-                <td class="table">{{ game.name }}</td>
+                <td class="table1">{{ game.name }}</td>
                 <td class="table">{{ game.rating }}</td>
                 <td class="table">{{ game.status }}</td>
                 <td class="table">{{ game.userrating }}</td>

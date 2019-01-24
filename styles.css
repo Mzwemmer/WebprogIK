@@ -186,3 +186,13 @@ h1{
     font-family:Tahoma;
     color: white;
 }
+
+.delete{
+    background-color: #a8001c;
+    font-family:Tahoma;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    width: 250px;
+
+}

@@ -149,6 +149,10 @@ body {
     background-color: #0e1c33;
 }
 
+.textaddgame:hover {
+    background-color:#1a3156;
+}
+
 .titeladdgame {
     font-family:Tahoma;
     color: white;

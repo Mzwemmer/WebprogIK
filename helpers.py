@@ -33,6 +33,7 @@ def lookup(name):
 
 def delete_account(user_id):
     db.execute("DELETE * FROM users WHERE id =:id", id = user_id)
+    db.execute("DELETE * FROM games WHERE id =:id", id = user_id)
     return "Done"
 
 def check_register(username, email, password):

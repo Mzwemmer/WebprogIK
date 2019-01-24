@@ -107,6 +107,7 @@ def register():
     else:
         return render_template("register.html")
 
+
 @app.route("/index", methods=["GET", "POST"])
 @login_required
 def index():
@@ -121,7 +122,6 @@ def index():
             game_addrating = None
 
         game_addstatus = request.form.get("status")
-
 
         if game_addnumber < 1 or game_addnumber > 10:
             return render_template("index.html")
@@ -161,23 +161,41 @@ def addgames():
 @login_required
 def allgames():
     user_id = session["user_id"]
-    games = get_games(user_id, "*")
-    
+    games = get_allgames(user_id)
+
+    i= 1
+    for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
+        game["number"] = i
+        i += 1
+
     return render_template("allgames.html", games = games)
 
 @app.route("/completed", methods=["GET", "POST"])
 @login_required
 def completed():
     user_id = session["user_id"]
-    games = get_games(user_id, "completed")
-    
+    games = get_completedgames(user_id)
+
+    i= 1
+    for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
+        game["number"] = i
+        i += 1
+
     return render_template("completed.html", games = games)
 
 @app.route("/currently", methods=["GET", "POST"])
 @login_required
 def currently():
     user_id = session["user_id"]
-    games = get_games(user_id, "current")
+    games = get_currentgames(user_id)
+
+    i= 1
+    for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
+        game["number"] = i
+        i += 1
 
     return render_template("currently.html", games = games)
 
@@ -185,7 +203,13 @@ def currently():
 @login_required
 def dropped():
     user_id = session["user_id"]
-    games = get_games(user_id,"dropped")
+    games = get_droppedgames(user_id)
+
+    i= 1
+    for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
+        game["number"] = i
+        i += 1
 
     return render_template("dropped.html", games = games)
 
@@ -193,7 +217,13 @@ def dropped():
 @login_required
 def onhold():
     user_id = session["user_id"]
-    games = get_games(user_id, "hold")
+    games = get_onholdgames(user_id)
+
+    i= 1
+    for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
+        game["number"] = i
+        i += 1
 
     return render_template("onhold.html", games = games)
 
@@ -201,7 +231,13 @@ def onhold():
 @login_required
 def wishlist():
     user_id = session["user_id"]
-    games = get_games(user_id, "wishlist")
+    games = get_wishlistgames(user_id)
+
+    i= 1
+    for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
+        game["number"] = i
+        i += 1
 
     return render_template("wishlist.html", games = games)
 
@@ -224,6 +260,23 @@ def forgotpasw():
 @app.route("/send", methods=["GET", "POST"])
 def send():
     return render_template("send.html")
+
+@app.route("/account", methods=["GET", "POST"])
+@login_required
+def account():
+
+    return render_template("account.html")
+
+@app.route("/delete", methods=["GET", "POST"])
+@login_required
+def delete():
+    #if request.method == "POST":
+
+    user_id = session["user_id"]
+    delete_account(user_id)
+    #else:
+
+    return redirect(url_for("login"))
 
 
 @app.route("/logout")

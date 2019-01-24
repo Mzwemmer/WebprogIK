@@ -63,4 +63,10 @@ def get_games(user_id,status):
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id", user_id = user_id)
     else:
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status", user_id = user_id, status = status)
+
+    i = 1
+    for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
+        game["counter"] = i
+        i += 1
     return games

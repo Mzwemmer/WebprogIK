@@ -122,6 +122,7 @@ def index():
 
         game_addstatus = request.form.get("status")
 
+
         if game_addnumber < 1 or game_addnumber > 10:
             return render_template("index.html")
 
@@ -160,11 +161,10 @@ def addgames():
 @login_required
 def allgames():
     user_id = session["user_id"]
-    games = get_allgames(user_id)
+    games = get_games(user_id, "*")
 
     i= 1
     for game in games:
-        game["rating"] = str(game["rating"]).split('.')[0]
         game["number"] = i
         i += 1
 
@@ -174,11 +174,10 @@ def allgames():
 @login_required
 def completed():
     user_id = session["user_id"]
-    games = get_completedgames(user_id)
+    games = get_games(user_id, "completed")
 
     i= 1
     for game in games:
-        game["rating"] = str(game["rating"]).split('.')[0]
         game["number"] = i
         i += 1
 
@@ -188,11 +187,10 @@ def completed():
 @login_required
 def currently():
     user_id = session["user_id"]
-    games = get_currentgames(user_id)
+    games = get_games(user_id, "current")
 
     i= 1
     for game in games:
-        game["rating"] = str(game["rating"]).split('.')[0]
         game["number"] = i
         i += 1
 
@@ -202,11 +200,10 @@ def currently():
 @login_required
 def dropped():
     user_id = session["user_id"]
-    games = get_droppedgames(user_id)
+    games = get_games(user_id,"dropped")
 
     i= 1
     for game in games:
-        game["rating"] = str(game["rating"]).split('.')[0]
         game["number"] = i
         i += 1
 
@@ -216,11 +213,10 @@ def dropped():
 @login_required
 def onhold():
     user_id = session["user_id"]
-    games = get_onholdgames(user_id)
+    games = get_games(user_id, "hold")
 
     i= 1
     for game in games:
-        game["rating"] = str(game["rating"]).split('.')[0]
         game["number"] = i
         i += 1
 
@@ -230,11 +226,10 @@ def onhold():
 @login_required
 def wishlist():
     user_id = session["user_id"]
-    games = get_wishlistgames(user_id)
+    games = get_games(user_id, "wishlist")
 
     i= 1
     for game in games:
-        game["rating"] = str(game["rating"]).split('.')[0]
         game["number"] = i
         i += 1
 

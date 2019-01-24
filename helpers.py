@@ -57,27 +57,9 @@ def addgame(game,user_id,rating,status):
                     name=game["name"], rating=game["rating"], user_id=user_id, status=status, userrating=rating)
 
 
-def get_allgames(user_id):
-    games = db.execute("SELECT * FROM games WHERE user_id=:user_id", user_id = user_id)
+def get_games(user_id,status):
+    if status == "*":
+        games = db.execute("SELECT * FROM games WHERE user_id=:user_id", user_id = user_id)
+    else:
+        games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status", user_id = user_id, status = status)
     return games
-
-def get_completedgames(user_id):
-    games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status", user_id = user_id, status = "completed")
-    return games
-
-def get_droppedgames(user_id):
-    games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status", user_id = user_id, status = "dropped")
-    return games
-
-def get_currentgames(user_id):
-    games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status", user_id = user_id, status = "current")
-    return games
-
-def get_wishlistgames(user_id):
-    games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status", user_id = user_id, status = "wishlist")
-    return games
-
-def get_onholdgames(user_id):
-    games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status", user_id = user_id, status = "hold")
-    return games
-

@@ -163,11 +163,9 @@ def allgames():
     user_id = session["user_id"]
     games = get_games(user_id, "*")
 
-    i= 1
     for game in games:
         game["rating"] = str(game["rating"]).split('.')[0]
-        game["number"] = i
-        i += 1
+
 
     return render_template("allgames.html", games = games)
 
@@ -177,11 +175,8 @@ def completed():
     user_id = session["user_id"]
     games = get_games(user_id, "completed")
 
-    i= 1
     for game in games:
         game["rating"] = str(game["rating"]).split('.')[0]
-        game["number"] = i
-        i += 1
 
     return render_template("completed.html", games = games)
 
@@ -191,11 +186,9 @@ def currently():
     user_id = session["user_id"]
     games = get_games(user_id, "current")
 
-    i= 1
     for game in games:
         game["rating"] = str(game["rating"]).split('.')[0]
-        game["number"] = i
-        i += 1
+
 
     return render_template("currently.html", games = games)
 
@@ -205,11 +198,8 @@ def dropped():
     user_id = session["user_id"]
     games = get_games(user_id,"dropped")
 
-    i= 1
     for game in games:
         game["rating"] = str(game["rating"]).split('.')[0]
-        game["number"] = i
-        i += 1
 
     return render_template("dropped.html", games = games)
 
@@ -219,11 +209,8 @@ def onhold():
     user_id = session["user_id"]
     games = get_games(user_id, "hold")
 
-    i= 1
     for game in games:
         game["rating"] = str(game["rating"]).split('.')[0]
-        game["number"] = i
-        i += 1
 
     return render_template("onhold.html", games = games)
 
@@ -233,11 +220,8 @@ def wishlist():
     user_id = session["user_id"]
     games = get_games(user_id, "wishlist")
 
-    i= 1
     for game in games:
         game["rating"] = str(game["rating"]).split('.')[0]
-        game["number"] = i
-        i += 1
 
     return render_template("wishlist.html", games = games)
 

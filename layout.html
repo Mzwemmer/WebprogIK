@@ -28,19 +28,16 @@
                    <a href="{{ url_for('onhold') }}">Hold</a>
                    <a href="{{ url_for('dropped') }}">Dropped</a>
                    <a href="{{ url_for('wishlist') }}">Wishlist</a>
-                   <a style="float: right" href="{{ url_for('account') }}">Logout</a>
-                   <a style="float: right" href="{{ url_for('logout')}}">Account Settings</a>
+                   <a style="float: right" href="{{ url_for('logout') }}">Logout</a>
+                   <a style="float: right"href="{{ url_for('account') }}">Account settings</a>
 
             {% else %}
-
                 <a href="{{ url_for('register') }}">Register</a></li>
                 <a href="{{ url_for('login') }}">Log In</a></li>
 
 
             {% endif %}
         </div>
-
-
 
 
         {% if get_flashed_messages() %}

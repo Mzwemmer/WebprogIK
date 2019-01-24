@@ -16,8 +16,6 @@ https://drive.google.com/open?id=1pew27FYQ2A3Ubfq71C2OlBrCzHzbLZul
 
 - De mogelijkheid om games te sturen naar mensen als tips.
 
-- De mogelijkheid om categoriën te sorteren op bepaalde eigenschappen.
-
 - De mogelijkheid om games uit te sorteren op 5 categorieën(currently playing, on hold, dropped, completed, wishlist)
 
 - De mogelijkheid om je wachtwoord, username en email te veranderen.

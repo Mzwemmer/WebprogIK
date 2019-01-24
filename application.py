@@ -162,11 +162,7 @@ def addgames():
 def allgames():
     user_id = session["user_id"]
     games = get_games(user_id, "*")
-
-    for game in games:
-        game["rating"] = str(game["rating"]).split('.')[0]
-
-
+    
     return render_template("allgames.html", games = games)
 
 @app.route("/completed", methods=["GET", "POST"])
@@ -174,10 +170,7 @@ def allgames():
 def completed():
     user_id = session["user_id"]
     games = get_games(user_id, "completed")
-
-    for game in games:
-        game["rating"] = str(game["rating"]).split('.')[0]
-
+    
     return render_template("completed.html", games = games)
 
 @app.route("/currently", methods=["GET", "POST"])
@@ -185,10 +178,6 @@ def completed():
 def currently():
     user_id = session["user_id"]
     games = get_games(user_id, "current")
-
-    for game in games:
-        game["rating"] = str(game["rating"]).split('.')[0]
-
 
     return render_template("currently.html", games = games)
 
@@ -198,9 +187,6 @@ def dropped():
     user_id = session["user_id"]
     games = get_games(user_id,"dropped")
 
-    for game in games:
-        game["rating"] = str(game["rating"]).split('.')[0]
-
     return render_template("dropped.html", games = games)
 
 @app.route("/onhold", methods=["GET", "POST"])
@@ -209,9 +195,6 @@ def onhold():
     user_id = session["user_id"]
     games = get_games(user_id, "hold")
 
-    for game in games:
-        game["rating"] = str(game["rating"]).split('.')[0]
-
     return render_template("onhold.html", games = games)
 
 @app.route("/wishlist", methods=["GET", "POST"])
@@ -219,9 +202,6 @@ def onhold():
 def wishlist():
     user_id = session["user_id"]
     games = get_games(user_id, "wishlist")
-
-    for game in games:
-        game["rating"] = str(game["rating"]).split('.')[0]
 
     return render_template("wishlist.html", games = games)
 

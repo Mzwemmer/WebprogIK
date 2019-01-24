@@ -234,6 +234,14 @@ def account():
 @app.route("/delete", methods=["GET", "POST"])
 @login_required
 def delete():
+    user_id = session["user_id"]
+    delete_account(user_id)
+
+    return redirect(url_for("login"))
+
+@app.route("/delete", methods=["GET", "POST"])
+@login_required
+def delete():
     #if request.method == "POST":
 
     user_id = session["user_id"]

@@ -8,23 +8,19 @@
 
     <form action="{{ url_for('account') }}" method="post">
 
-
-
+        <h1>Account settings</h1>
 
         <div class="text2">
-            <div class="text">
-                <b>Account settings</b>
-            </div>
 
-            <p>
-                ‏‏‎
-            </p>
+                <a href="{{ url_for('delete') }}">
+                    <div class="delete">
+                        Delete account <b>X</b>
+                    </div>
+                </a>
+                <div class="disclaimer">
+                    Warning: Once you click this button, your account will be deleted!
+                </div>
 
-            <div class="delete">
-
-                <a href="{{ url_for('delete') }}">Delete account</a>
-
-            </div>
         </div>
 
     </form>

@@ -115,7 +115,7 @@ def index():
         game_addrating = request.form.get("rating")
         try:
             game_addrating = int(game_addrating)
-            if game_addrating < 1 or game_addrating > 10:
+            if game_addrating < 1 or game_addrating > 100:
                 game_addrating = None
         except:
             game_addrating = None

@@ -27,7 +27,7 @@ def lookup(name):
     headers = {'user-key': '663bdc9cdfcbb5aaae5a2a8a14b4d70a'}
     data = f'search "{name}"; fields name, rating, summary;'
     r = requests.get(url, headers = headers, json = {"key":"value"}, data = data)
-    if len(r) == 0:
+    if not r:
         return None
     return r.json()
 

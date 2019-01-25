@@ -163,7 +163,12 @@ def allgames():
     user_id = session["user_id"]
     games = get_games(user_id, "*")
 
-    return render_template("allgames.html", games = games)
+    if len(games) != 0:
+        return render_template("allgames.html", games = games)
+
+    else:
+        message = "No games added yet. Click add games in the top left corner"
+        return render_template("allgames.html", message = message)
 
 @app.route("/completed", methods=["GET", "POST"])
 @login_required

@@ -201,3 +201,14 @@ h1{
     font-family:Tahoma;
     color: red;
 }
+
+.nogames{
+    background-color: #0e1554;
+    font-family:Tahoma;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    color: #bdbec1;
+    width: 250px;
+    padding: 15px 5px 15px 5px;
+}

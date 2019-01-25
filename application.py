@@ -38,20 +38,22 @@ def login():
     # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
+        error = ""
+
         # ensure username was submitted
         if not request.form.get("username"):
-            return render_template("login")
+            return render_template("login.html", error = "Provide a username")
 
         # ensure password was submitted
         elif not request.form.get("password"):
-            return render_template("login")
+            return render_template("login.html", error = "Must provide password")
 
         # query database for username
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
         # ensure username exists and password is correct
         if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
-            return render_template("login")
+            return render_template("login.html", error = "Username and/or Password incorrect")
 
         # remember which user has logged in
         session["user_id"] = rows[0]["id"]

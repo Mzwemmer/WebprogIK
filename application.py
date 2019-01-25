@@ -75,25 +75,25 @@ def register():
     if request.method == "POST":
         # ensure username was submitted
         if not request.form.get("username"):
-            return render_template("register.html")
+            return render_template("register.html", error = "Provide an username.")
 
         # ensure password was submitted
         elif not request.form.get("password"):
-            return render_template("register.html")
+            return render_template("register.html", error = "Provide a password")
 
         # ensure the password was re-entered
         elif not request.form.get("confirmation"):
-            return render_template("register.html")
+            return render_template("register.html", error = "Correctly repeat your password.")
 
         elif not request.form.get("email"):
-            return render_template("register.html")
+            return render_template("register.html", error = "Provide an email adress.")
 
         elif "@" not in request.form.get("email"):
-            return render_template("register.html")
+            return render_template("register.html", error = "Provide a valid email adress.")
 
         # raise an error if the password and username dont match
         if request.form.get("password") != request.form.get("confirmation"):
-            returnrender_template("register.html")
+            return render_template("register.html", error = "Correctly repeat your password.")
 
         username = request.form.get("username")
         email = request.form.get("email")
@@ -104,7 +104,7 @@ def register():
         if check == "Done":
             return redirect(url_for("login"))
         else:
-            return render_template("register.html")
+            return render_template("register.html", error = "Oops something went wrong.")
 
     else:
         return render_template("register.html")

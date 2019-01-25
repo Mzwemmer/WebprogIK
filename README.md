@@ -49,5 +49,3 @@ Wij hebben alle features nodig die momenteel ook voor de website finance gebruik
 De website waarvan wij de database haalt heeft ook al een feature om een account aan te maken.  Er bestaan al wel websites voor verschillende andere mediums zoal anime die lijken op wat wij willen gaan maken. Hierbij kan gedacht worden aan myanimelist.net . Deze website in specifiek heeft het zo gemaakt dat je de verschillende titels onder verschillende kopjes kan zetten zodat je beter door je eigen lijst van series heen kan gaan. Dit kan ook handig zijn voor games, want hierdoor krijg je een beter overzicht over wat je al gespeeld hebt en wat niet. Dit is iets wat nog niet door andere websites gedaan wordt die te maken hebben met gamen.
 
 Het overzetten naar verschillende lijsten wordt een opgave, want dit zorgt voor veel eigen databases die misschien erg traag worden. Wij moeten er dan voor zorgen dat deze hoeveelheid nog te overzien wordt en dat de site toch gemakkelijk te laden blijft.
-
-

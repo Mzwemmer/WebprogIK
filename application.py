@@ -38,8 +38,6 @@ def login():
     # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
-        error = ""
-
         # ensure username was submitted
         if not request.form.get("username"):
             return render_template("login.html", error = "Provide a username")

@@ -8,7 +8,7 @@ https://drive.google.com/open?id=1pew27FYQ2A3Ubfq71C2OlBrCzHzbLZul
 
 # Features
 
-- Toegang tot een database(kunnen zoeken en sorteren op games)
+- Toegang tot een database(kunnen zoeken op games).
 
 - De mogelijkheid om een profiel aan te maken en in te loggen.
 
@@ -29,8 +29,6 @@ https://drive.google.com/open?id=1pew27FYQ2A3Ubfq71C2OlBrCzHzbLZul
 - De mogelijkheid om je account te verwijderen
 
 # Optioneel
-
-- De mogelijkheid om een profile picture toe te voegen.
 
 - De mogelijkheid om andere mensen hun profiel te bekijken.
 

@@ -153,10 +153,12 @@ def addgames():
 
         session['jsonsession'] = jsonuser
 
+        if lookup(game_name) == []:
+            return render_template("addgames.html", error = "The game you're looking for does not exist")
+
         return redirect(url_for("index"))
     else:
         return render_template("addgames.html")
-
 @app.route("/allgames", methods=["GET", "POST"])
 @login_required
 def allgames():

@@ -12,14 +12,14 @@
 
         <div class="text2">
 
-                <a href="#" onclick="myFunction()">
+                <a href="#" onclick="confirmdelete()">
                     <div class="delete">
                         Delete account <b>X</b>
                     </div>
                 </a>
         <script>
 
-        function myFunction() {
+        function confirmdelete() {
           var r = confirm("Are you sure you want to delete this account?");
           if (r == false) {
             window.location = "{{ url_for('account') }}";

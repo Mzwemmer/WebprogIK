@@ -113,13 +113,14 @@ def register():
 def index():
     if request.method == "POST":
         number = 0
+        #ga voor elk veld dat er bestaat kijken of er een verandering in de status is
         for i in range(10):
             game_addstatus = request.form.get("status_{i}")
             if game_addstatus != "Select":
                 number = i
                 break
 
-
+        #Kijk of er een rating is toegevoegd en zo ja voeg die toe.
         game_addrating = request.form.get("rating_{number}")
         try:
             game_addrating = int(game_addrating)
@@ -130,7 +131,8 @@ def index():
 
         number -=1
         game_addstatus = request.form.get("status_{number}")
-
+        
+        #Voeg de game toe aan de database
         jsonuser = session.get('jsonsession')
         game_add = jsonuser[number]
         session_id = session["user_id"]

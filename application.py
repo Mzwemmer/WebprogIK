@@ -149,6 +149,8 @@ def addgames():
             game["counter"] = x
             if 'rating' not in game:
                 game["rating"] = "Rating unknown"
+            if 'summary' not in game:
+                game["summary"] = "No summary known"
             x+=1
 
         session['jsonsession'] = jsonuser

@@ -187,6 +187,16 @@ h1{
     color: white;
 }
 
+.top {
+    text-align:center;
+}
+
+.hide {
+    text-align:left;
+    background-color: #0e1c33;
+    display:none;
+}
+
 .delete{
     background-color: #a8001c;
     font-family:Tahoma;

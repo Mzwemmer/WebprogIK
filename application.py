@@ -112,8 +112,19 @@ def register():
 @login_required
 def index():
     if request.method == "POST":
-        game_addnumber = int(request.form.get("number"))
-        game_addrating = request.form.get("rating")
+        number = str(0)
+        jsonuser = session.get('jsonsession')
+        for i in range(1,(len(jsonuser)+1)):
+            temp_status = "status_" + str(i)
+            game_addstatus = request.form.get(temp_status)
+            if game_addstatus != "select":
+                number = str(i)
+                break
+
+        temp_status = "status_" + str(number)
+        temp_score = "rating_" + str(number)
+        game_addrating = request.form.get(temp_score)
+        game_addstatus = request.form.get(temp_status)
         try:
             game_addrating = int(game_addrating)
             if game_addrating < 1 or game_addrating > 100:
@@ -121,14 +132,10 @@ def index():
         except:
             game_addrating = None
 
-        game_addstatus = request.form.get("status")
+        number = int(number)
+        number -=1
 
-        if game_addnumber < 1 or game_addnumber > 10:
-            return render_template("index.html")
-
-        game_addnumber -= 1
-        jsonuser = session.get('jsonsession')
-        game_add = jsonuser[game_addnumber]
+        game_add = jsonuser[number]
         session_id = session["user_id"]
         addgame(game_add,session_id,game_addrating,game_addstatus)
 

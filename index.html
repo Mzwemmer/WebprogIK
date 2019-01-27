@@ -8,13 +8,6 @@
 <form action="{{ url_for('index') }}" method="post">
 
     <div class="addgames">
-        <div class="top">
-
-            <div>
-                <input autocomplete="off" autofocus class="input1" name="number" placeholder="Number" type="number"/>
-            </div>
-
-        </div>
         <table width="90%" align="center">
             <thead>
                 <tr class="titeladdgame">
@@ -26,58 +19,59 @@
         </table>
         <div class = "games">
             {%for game in json %}
-            <table width="90%" align="center">
-                <thead align="center">
-                    <tr class="textaddgame">
-                        <td class="table" width="5%">{{ game.counter }} </button></td>
-                        <td class="table1" width="65%">{{ game.name }}</td>
-                        <td class="table" width="20%">{{ game.rating }}</td>
-                        <td class="table" width="5%">
-                            <label align="center" for="{{ game.counter }}" id = "info"></label>
-				            <input type="button" value="Game Info" id="{{ game.counter }}" class="info-toggle" data-toggle="toggle">
-                        </td>
-                        <td width="5%">
-                            <button class="button" type="submit">Add game</button>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody class="hide" id="info_{{ game.counter }}">
-                    <tr>
-                        <td colspan="1"></td>
-                        <td colspan="3">
-                            <div>
-                            ‏‏‎
+                <table width="90%" align="center">
+                    <thead align="center">
+
+                        <tr class="textaddgame">
+                            <td class="table" width="5%">{{ game.counter }} </button></td>
+                            <td class="table1" width="65%">{{ game.name }}</td>
+                            <td class="table" width="20%">{{ game.rating }}</td>
+                            <td class="table" width="5%">
+                                <label align="center" for="{{ game.counter }}" id = "info"></label>
+    				            <input type="button" value="Game Info" id="{{ game.counter }}" class="info-toggle" data-toggle="toggle">
+                            </td>
+                            <td width="5%">
+                                <button class="button" type="submit">Add game</button>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody class="hide" id="info_{{ game.counter }}">
+                        <tr>
+                            <td colspan="1"></td>
+                            <td colspan="3">
+                                <div>
+                                ‏‏‎
+                                </div>
+                                <div>
+                                {{game.summary}}
+                                </div>
+                                <div>
+                                ‏‏‎
+                                </div>
+                            </td>
+                            <td colspan="1"></td>
+
+                            <td>
+                                <div class="hide">Add to:</div>
+                                    <select class="input2" name="status_{{ game.counter }}">
+                                        <option value="Select"> Status</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="current">Currently playing</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="dropped">Dropped</option>
+                                        <option value="wishlist">Wishlist</option>
+                                    </select>
                             </div>
-                            <div>
-                            {{game.summary}}
-                            </div>
-                            <div>
-                            ‏‏‎
-                            </div>
-                        </td>
-                        <td colspan="1"></td>
+                                <div>
+                                   <input autocomplete="off" autofocus class="input2" name="rating_{{ game.counter }}" placeholder="Rating / 100 (optional)" type="number"/>
+                                </div>
 
-                        <!--<td>-->
-                        <!--    <div class="hide">Add to:</div>-->
-                        <!--        <select class="input2" name="status">-->
-                        <!--            <option value="completed">Completed</option>-->
-                        <!--            <option value="current">Currently playing</option>-->
-                        <!--            <option value="hold">On hold</option>-->
-                        <!--            <option value="dropped">Dropped</option>-->
-                        <!--            <option value="wishlist">Wishlist</option>-->
-                        <!--        </select>-->
-                        <!--    </div>-->
-                        <!--    <div>-->
-                        <!--        <input autocomplete="off" autofocus class="input2" name="rating" placeholder="Rating / 100 (optional)" type="number"/>-->
-                        <!--    </div>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <tr><td><br/></td></tr>
-
+                <tr><td><br/></td></tr>
             {%endfor%}
             </div>
 
@@ -90,7 +84,7 @@
         <script>
             $(document).ready(function() {
                 $('.info-toggle').click(function (event) {
-                	console.log(event.target)
+                	console.log(event.target);
                     $("#info_"+event.target.id).toggle();
                 });
             })

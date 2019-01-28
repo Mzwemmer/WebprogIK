@@ -49,8 +49,6 @@ body {
     border: 2px solid #2F4F4F;
     padding: 5px;
 
-
-
 }
 
 .text {
@@ -67,14 +65,13 @@ body {
 
 .text2 {
 
-    margin: 150px 0px 0px 20px;
+    margin-top:10%;
     border-left: 20px solid rgba(0, 0, 0, 0.3);
     border-right: 20px solid rgba(0, 0, 0, 0.3);
-    width: 250px;
+    width: 20%;
     text-align:center;
-    min-height: 250px;
     background-color: hsla(217, 50%, 30%, 0.5);
-    margin-left: 580px;
+    margin-left: 40%;
 
 }
 
@@ -85,7 +82,8 @@ body {
     color:white;
     font-size: 14px;
     margin-top: 5px;
-
+    margin-bottom: 5px;
+    text-decoration:none;
 }
 
 .text3 a {
@@ -118,28 +116,14 @@ body {
     background-color: #1a3156;
 }
 
-
-.middle {
-    margin: 150px 0px 0px 20px;
-    border-left: 20px solid rgba(0, 0, 0, 0.3);
-    border-right: 20px solid rgba(0, 0, 0, 0.3);
-    width: 250px;
-    text-align:center;
-    min-height: 250px;
-    background-color: hsla(217, 50%, 30%, 0.5);
-    margin-left: 580px;
-}
-
 .addgames {
-    margin: 150px 0px 0px 20px;
+    margin: 1% 0% 0% 15%;
     border-left: 20px solid rgba(0, 0, 0, 0.3);
     border-right: 20px solid rgba(0, 0, 0, 0.3);
-    width: 500px;
+    width: 70%;
     color:white;
-    text-align:center;
-    min-height: 250px;
     background-color: hsla(217, 50%, 30%, 0.5);
-    margin-left: 480px;
+
 }
 
 .textaddgame {
@@ -203,7 +187,10 @@ h1{
     font-size: 20px;
     text-align: center;
     color: white;
-    width: 250px;
+    width: 50%;
+    margin-left:25%;
+    border: 1px solid #a8001c;
+    border-radius: 5px;
 
 }
 
@@ -215,9 +202,14 @@ h1{
 .nogames{
     font-family:Tahoma;
     font-size: 14px;
-    text-align: center;
+    margin-left:25%;
     font-weight: bold;
     color: #bdbec1;
-    width: 250px;
     padding: 15px 5px 15px 5px;
 }
+
+.image {
+    margin-left: 90%;
+    margin-top: 20%;
+}
+

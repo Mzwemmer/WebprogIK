@@ -91,3 +91,20 @@ def lookup_name(name):
         return None
     else:
         return temp
+    
+def sortrating(user_id,status):
+    if status == "*":
+        games = db.execute("SELECT * FROM games WHERE user_id=:user_id ORDER BY userrating DESC", user_id = user_id)
+    else:
+        games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status ORDER BY userrating DESC", user_id = user_id, status = status)
+
+    return games
+
+def sortalfa(user_id,status):
+    if status == "*":
+        games = db.execute("SELECT * FROM games WHERE user_id=:user_id ORDER BY name ASC", user_id = user_id)
+    else:
+        games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status ORDER BY name ASC", user_id = user_id, status = status)
+
+    return games
+

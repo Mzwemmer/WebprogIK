@@ -81,3 +81,13 @@ def update_game(user_id, game, status, rating):
     selected_game = db.execute("UPDATE games(status,rating;) VALUES (:status,:rating", status=status,rating=rating)
 
     return "Done"
+
+def remove_game(name, user_id):
+    db.execute("DELETE FROM games WHERE name=:name AND user_id=:user_id", name=name, user_id=user_id)
+
+def lookup_name(name):
+    temp = db.execute("SELECT id FROM users WHERE username=:username", username=name)
+    if temp == []:
+        return None
+    else:
+        return temp

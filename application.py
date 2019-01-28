@@ -185,13 +185,25 @@ def addgames():
 def allgames():
     user_id = session["user_id"]
     games = get_games(user_id, "*")
-    
-    #Check if the user has any games in the database under their id.
-    if len(games) != 0:
-        return render_template("allgames.html", games = games)
-    else:
+
+    # message if user has added no games yet
+    if len(games) == 0:
         message = "No games added yet. Click add games in the top left corner"
         return render_template("allgames.html", message = message)
+
+    else:
+        #temp_sort = "sortgames"
+        #add_sort = request.form.get(temp_sort)
+
+        # sort games if user selected rating or alphabetical
+        if request.form.get("sortgames") == "rating":
+            games = sortrating(user_id, "*")
+            return render_template("allgames.html", games = games)
+        elif request.form.get("sortgames") == "alfa":
+            games = sortalfa(user_id, "*")
+            return render_template("allgames.html", games = games)
+
+        return render_template("allgames.html", games = games)
 
 @app.route("/completed", methods=["GET", "POST"])
 @login_required

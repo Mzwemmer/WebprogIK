@@ -6,32 +6,95 @@
 
 {% block main %}
 <form action="{{ url_for('allgames') }}" method="post">
-
+    <h1>
+        All your games
+    </h1>
     <div class="addgames">
-        <table>
+        <table width="90%" align="center">
+            <thead>
+                <tr class="titeladdgame">
+                    <td width="5%">    </td>
+                    <td width="55%"> Name </td>
+                    <td width="10%"> Rating </td>
+                    <td width="10%"> Status </td>
+                    <td width="10%"> User Rating</td>
+                    <td width="10%"></td>
+                </tr>
+            </thead>
+        </table>
+            <tr><td></td></tr>
 
-            <tr class="titeladdgame">
-                <td>    </td>
-                <td> Name </td>
-                <td> Rating </td>
-                <td> Status </td>
-                <td> User Rating</td>
-            </tr>
+            <tr><td colspan="5" class="nogames"> {{ message }}</td></tr>
 
             {%for game in games %}
+            <table width="90%" align="center">
+                <thead>
+                    <tr class="textaddgame">
+                        <td class="table" width="5%">{{ game.counter }} </button></td>
+                        <td class="table1" width="55%">{{ game.name }}</td>
+                        <td class="table" width="10%">{{ game.rating }}</td>
+                        <td class="table" width="10%">{{ game.status }}</td>
+                        <td class="table" width="10">{{ game.userrating }}</td>
+                        <td class="table" width="10%">
+                            <label for="{{ game.counter }}" id = "info"></label>
+        		            <input type="button" value="Options" id="{{ game.counter }}" class="info-toggle" data-toggle="toggle">
+                        </td>
+                    </tr>
+                </thead>
+                <tbody class="hide" id="info_{{ game.counter }}">
+                    <tr>
+                        <td colspan="1"></td>
+                        <td colspan="1">
+                            <div>
+                            ‏‏‎
+                            </div>
+                            <div>Change Status</div>
+                            <div>
+                                <select class="input2" name="status_{{ game.counter }}">
+                                    <option value="select"> Select</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="current">Currently playing</option>
+                                    <option value="hold">On hold</option>
+                                    <option value="dropped">Dropped</option>
+                                    <option value="wishlist">Wishlist</option>
+                                </select>
+                            </div>
+                            <div>
+                            ‏‏‎
+                            </div>
+                            <div>Change Rating</div>
+                            <div>
+                               <input autocomplete="off" autofocus class="input2" name="rating_{{ game.counter }}" placeholder="Rating / 100 (optional)" type="number"/>
+                            </div>
+                        </td>
 
-            <tr class="textaddgame">
-                <td class="table">{{ game.counter }} </button></td>
-                <td class="table">{{ game.name }}</td>
-                <td class="table">{{ game.rating }}</td>
-                <td class="table">{{ game.status }}</td>
-                <td class="table">{{ game.userrating }}</td>
-            </tr>
+                        <td colspan="2" align="center">
+                            <div>
+                                <button class="button" type="submit">Commit changes</button>
+                            </div>
+                        </td>
+                        <td colspan="2">
+                            <div class="delete">
+                                Delete game <b>X</b>
+                            </div>
+                        </td>
 
+                    </tr>
+                </tbody>
+            </table>
             <tr><td><br/></td></tr>
             {%endfor%}
 
-        </table>
+
+        <script>
+            $(document).ready(function() {
+                $('.info-toggle').click(function (event) {
+                	console.log(event.target);
+                    $("#info_"+event.target.id).toggle();
+                });
+            })
+
+        </script>
 
     </div>
 </form>

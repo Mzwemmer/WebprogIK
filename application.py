@@ -278,3 +278,21 @@ def logout():
 
     # redirect user to login form
     return redirect(url_for("login"))
+
+@app.route("/search", methods=["GET", "POST"])
+@login_required
+def search():
+    if request.method == "POST":
+        username = request.form.get("namesearch")
+        name = lookup_name(username)
+        status = request.form.get("status")
+        if name == None:
+            return render_template("search.html", error = "Username not found in the system")
+        else:
+            name = name[0]
+            games = get_games(name["id"],status)
+            if status == "*":
+                status = "all games"
+            return render_template("found.html", games = games, name = username, status = status)
+    else:
+        return render_template("search.html")

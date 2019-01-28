@@ -97,7 +97,13 @@ def sortrating(user_id,status):
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id ORDER BY userrating DESC", user_id = user_id)
     else:
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status ORDER BY userrating DESC", user_id = user_id, status = status)
-
+    
+    i = 1
+    for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
+        game["counter"] = i
+        i += 1
+        
     return games
 
 def sortalfa(user_id,status):
@@ -105,6 +111,12 @@ def sortalfa(user_id,status):
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id ORDER BY name ASC", user_id = user_id)
     else:
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status ORDER BY name ASC", user_id = user_id, status = status)
-
+    
+    i = 1
+    for game in games:
+        game["rating"] = str(game["rating"]).split('.')[0]
+        game["counter"] = i
+        i += 1
+        
     return games
 

@@ -210,6 +210,13 @@ def allgames():
 def completed():
     user_id = session["user_id"]
     games = get_games(user_id, "completed")
+    
+    if request.form.get("sortgames") == "rating":
+        games = sortrating(user_id, "completed")
+        return render_template("completed.html", games = games)
+    elif request.form.get("sortgames") == "alfa":
+        games = sortalfa(user_id, "completed")
+        return render_template("completed.html", games = games)
 
     return render_template("completed.html", games = games)
 
@@ -218,6 +225,13 @@ def completed():
 def currently():
     user_id = session["user_id"]
     games = get_games(user_id, "current")
+    
+    if request.form.get("sortgames") == "rating":
+        games = sortrating(user_id, "currently")
+        return render_template("currently.html", games = games)
+    elif request.form.get("sortgames") == "alfa":
+        games = sortalfa(user_id, "currently")
+        return render_template("currently.html", games = games)
 
     return render_template("currently.html", games = games)
 
@@ -226,6 +240,13 @@ def currently():
 def dropped():
     user_id = session["user_id"]
     games = get_games(user_id,"dropped")
+    
+    if request.form.get("sortgames") == "rating":
+        games = sortrating(user_id, "dropped")
+        return render_template("dropped.html", games = games)
+    elif request.form.get("sortgames") == "alfa":
+        games = sortalfa(user_id, "dropped")
+        return render_template("dropped.html", games = games)
 
     return render_template("dropped.html", games = games)
 
@@ -234,6 +255,13 @@ def dropped():
 def onhold():
     user_id = session["user_id"]
     games = get_games(user_id, "hold")
+    
+    if request.form.get("sortgames") == "rating":
+        games = sortrating(user_id, "onhold")
+        return render_template("onhold.html", games = games)
+    elif request.form.get("sortgames") == "alfa":
+        games = sortalfa(user_id, "onhold")
+        return render_template("onhold.html", games = games)
 
     return render_template("onhold.html", games = games)
 
@@ -242,6 +270,13 @@ def onhold():
 def wishlist():
     user_id = session["user_id"]
     games = get_games(user_id, "wishlist")
+    
+    if request.form.get("wishlist") == "rating":
+        games = sortrating(user_id, "wishlist")
+        return render_template("wishlist.html", games = games)
+    elif request.form.get("sortgames") == "alfa":
+        games = sortalfa(user_id, "wishlist")
+        return render_template("wishlist.html", games = games)
 
     return render_template("wishlist.html", games = games)
 

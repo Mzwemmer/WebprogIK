@@ -9,6 +9,9 @@
     <form action="{{ url_for('login') }}" method="post">
         <div class="text2">
              ‏‏‎
+             <div class="error">
+                {{ error }}
+            </div>
             <div>
                 <input autocomplete="off" autofocus class="input1" name="username" placeholder="Username" type="text"/>
             </div>
@@ -24,6 +27,9 @@
             <div class="text3">
             Forgot <a style="text-decoration:none" href="{{ url_for('forgotpasw') }}">password?</a>
             </div>
+        </div>
+        <div class="image">
+            <img src="static/Warning.png" height="115" width="100">
         </div>
 
 

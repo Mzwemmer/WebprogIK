@@ -125,6 +125,8 @@ def index():
         temp_score = "rating_" + str(number)
         game_addrating = request.form.get(temp_score)
         game_addstatus = request.form.get(temp_status)
+        if game_addstatus == None:
+            return render_template("index.html", json=jsonuser, error = "Click on game info to input a status for the game you are trying to add.")
         try:
             game_addrating = int(game_addrating)
             if game_addrating < 1 or game_addrating > 100:

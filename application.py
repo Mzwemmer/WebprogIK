@@ -112,6 +112,7 @@ def register():
 @login_required
 def index():
     if request.method == "POST":
+        #Check for the game that has a changed status so it can be added.
         number = str(0)
         jsonuser = session.get('jsonsession')
         for i in range(1,(len(jsonuser)+1)):
@@ -125,8 +126,13 @@ def index():
         temp_score = "rating_" + str(number)
         game_addrating = request.form.get(temp_score)
         game_addstatus = request.form.get(temp_status)
+        
+        #When the for loop fails this returns an erro to show the user that they need to input a status for the game.
         if game_addstatus == None:
             return render_template("index.html", json=jsonuser, error = "Click on game info to input a status for the game you are trying to add.")
+        
+        #Check if the added game got a rating from the user if no rating was found or a wrong rating
+        #make the rating equeal to None.
         try:
             game_addrating = int(game_addrating)
             if game_addrating < 1 or game_addrating > 100:
@@ -136,7 +142,8 @@ def index():
 
         number = int(number)
         number -=1
-
+        
+        #Select the game and add it to the database.
         game_add = jsonuser[number]
         session_id = session["user_id"]
         addgame(game_add,session_id,game_addrating,game_addstatus)
@@ -153,7 +160,8 @@ def addgames():
         x=1
         game_name = request.form.get("addgame")
         jsonuser = lookup(game_name)
-
+        
+        #add a counter and a summary to the games.
         for game in jsonuser:
             game["counter"] = x
             if 'rating' not in game:
@@ -163,22 +171,24 @@ def addgames():
             x+=1
 
         session['jsonsession'] = jsonuser
-
+           
+        #Catch a search that has no return if so raise an error.
         if lookup(game_name) == []:
             return render_template("addgames.html", error = "The game you're looking for does not exist")
 
         return redirect(url_for("index"))
     else:
         return render_template("addgames.html")
+    
 @app.route("/allgames", methods=["GET", "POST"])
 @login_required
 def allgames():
     user_id = session["user_id"]
     games = get_games(user_id, "*")
-
+    
+    #Check if the user has any games in the database under their id.
     if len(games) != 0:
         return render_template("allgames.html", games = games)
-
     else:
         message = "No games added yet. Click add games in the top left corner"
         return render_template("allgames.html", message = message)
@@ -252,6 +262,7 @@ def account():
 @app.route("/delete", methods=["GET", "POST"])
 @login_required
 def delete():
+    #Run a script that deletes the account. This page is a page inbetween 2 pages and reders nothing.
     user_id = session["user_id"]
     delete_account(user_id)
 

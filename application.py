@@ -312,6 +312,19 @@ def delete():
 
     return redirect(url_for("login"))
 
+@app.route("/deletegame", methods=["GET", "POST"])
+@login_required
+def deletegame():
+    user_id = session["user_id"]
+    games = get_games(user_id, "*")
+
+    for game in games:
+        gamename = game["name"]
+
+    remove_game(gamename, user_id)
+
+    return redirect(url_for("allgames"))
+
 
 @app.route("/logout")
 def logout():

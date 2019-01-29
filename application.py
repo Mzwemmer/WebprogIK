@@ -354,7 +354,7 @@ def search():
     else:
         return render_template("search.html")
 
-    @app.route("/tip", methods=["GET", "POST"])
+@app.route("/tip", methods=["GET", "POST"])
 @login_required
 def tip():
     if request.method == "POST":

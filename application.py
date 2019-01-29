@@ -192,93 +192,90 @@ def allgames():
         return render_template("allgames.html", message = message)
 
     else:
-        #temp_sort = "sortgames"
-        #add_sort = request.form.get(temp_sort)
-
-        # sort games if user selected rating or alphabetical
+        # sort games if user selected rating or alphabetical. else sort by date
         if request.form.get("sortgames") == "rating":
             games = sortrating(user_id, "*")
             return render_template("allgames.html", games = games)
         elif request.form.get("sortgames") == "alfa":
             games = sortalfa(user_id, "*")
             return render_template("allgames.html", games = games)
-
-        return render_template("allgames.html", games = games)
+        else:
+            return render_template("allgames.html", games = games)
 
 @app.route("/completed", methods=["GET", "POST"])
 @login_required
 def completed():
     user_id = session["user_id"]
     games = get_games(user_id, "completed")
-    
+
     if request.form.get("sortgames") == "rating":
         games = sortrating(user_id, "completed")
         return render_template("completed.html", games = games)
     elif request.form.get("sortgames") == "alfa":
         games = sortalfa(user_id, "completed")
         return render_template("completed.html", games = games)
-
-    return render_template("completed.html", games = games)
+    else:
+        return render_template("completed.html", games = games)
 
 @app.route("/currently", methods=["GET", "POST"])
 @login_required
 def currently():
     user_id = session["user_id"]
     games = get_games(user_id, "current")
-    
+
     if request.form.get("sortgames") == "rating":
         games = sortrating(user_id, "currently")
         return render_template("currently.html", games = games)
     elif request.form.get("sortgames") == "alfa":
         games = sortalfa(user_id, "currently")
         return render_template("currently.html", games = games)
-
-    return render_template("currently.html", games = games)
+    else:
+        return render_template("currently.html", games = games)
 
 @app.route("/dropped", methods=["GET", "POST"])
 @login_required
 def dropped():
     user_id = session["user_id"]
     games = get_games(user_id,"dropped")
-    
+
     if request.form.get("sortgames") == "rating":
         games = sortrating(user_id, "dropped")
         return render_template("dropped.html", games = games)
     elif request.form.get("sortgames") == "alfa":
         games = sortalfa(user_id, "dropped")
         return render_template("dropped.html", games = games)
-
-    return render_template("dropped.html", games = games)
+    else:
+        return render_template("dropped.html", games = games)
 
 @app.route("/onhold", methods=["GET", "POST"])
 @login_required
 def onhold():
     user_id = session["user_id"]
     games = get_games(user_id, "hold")
-    
+
     if request.form.get("sortgames") == "rating":
         games = sortrating(user_id, "onhold")
         return render_template("onhold.html", games = games)
     elif request.form.get("sortgames") == "alfa":
         games = sortalfa(user_id, "onhold")
         return render_template("onhold.html", games = games)
-
-    return render_template("onhold.html", games = games)
+    else:
+        return render_template("onhold.html", games = games)
 
 @app.route("/wishlist", methods=["GET", "POST"])
 @login_required
 def wishlist():
     user_id = session["user_id"]
     games = get_games(user_id, "wishlist")
-    
+
     if request.form.get("wishlist") == "rating":
         games = sortrating(user_id, "wishlist")
         return render_template("wishlist.html", games = games)
     elif request.form.get("sortgames") == "alfa":
         games = sortalfa(user_id, "wishlist")
         return render_template("wishlist.html", games = games)
-
-    return render_template("wishlist.html", games = games)
+    else:
+        return render_template("wishlist.html", games = games)
 
 @app.route("/forgotpasw", methods=["GET", "POST"])
 def forgotpasw():

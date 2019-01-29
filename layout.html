@@ -29,9 +29,9 @@
                    <a href="{{ url_for('dropped') }}"><b>Dropped</b></a>
                    <a href="{{ url_for('wishlist') }}"><b>Wishlist</b></a>
                    <a href="{{ url_for('tip') }}"><b>Tip a game</b></a>
-                   <a href="{{ url_for('search') }}"><img src = "static/search.png" width="20" height="20"> </a>
+                   <a href="{{ url_for('search') }}"><img src = "static/search.png" width="25" height="25"> </a>
                    <a style="float: right" href="{{ url_for('logout') }}">Logout</a>
-                   <a style="float: right"href="{{ url_for('account') }}">Account settings</a>
+                   <a style="float: right"href="{{ url_for('account') }}"><img src = "static/settings.png" width="25" height="25"></a>
 
             {% else %}
                 <a href="{{ url_for('register') }}">Register</a></li>

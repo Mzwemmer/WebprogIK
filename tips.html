@@ -16,7 +16,7 @@
 
 
     <select class="input2" name="game_tip" required>
-        <option disabled selected value>Symbol</option>
+        <option disabled selected value>Select game</option>
         {%for game in json%}
         <option value="{{game.name}}"data="{{game.name}}">{{game.name}}</option>
         {%endfor%}

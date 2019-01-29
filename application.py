@@ -112,7 +112,7 @@ def register():
 @login_required
 def index():
     if request.method == "POST":
-        #Check for the game that has a changed status so it can be added.
+        # check for the game that has a changed status so it can be added.
         number = str(0)
         jsonuser = session.get('jsonsession')
         for i in range(1,(len(jsonuser)+1)):
@@ -127,12 +127,12 @@ def index():
         game_addrating = request.form.get(temp_score)
         game_addstatus = request.form.get(temp_status)
         
-        #When the for loop fails this returns an erro to show the user that they need to input a status for the game.
+        # when the for loop fails this returns an erro to show the user that they need to input a status for the game.
         if game_addstatus == None:
             return render_template("index.html", json=jsonuser, error = "Click on game info to input a status for the game you are trying to add.")
         
-        #Check if the added game got a rating from the user if no rating was found or a wrong rating
-        #make the rating equeal to None.
+        # check if the added game got a rating from the user if no rating was found or a wrong rating
+        # make the rating equeal to None.
         try:
             game_addrating = int(game_addrating)
             if game_addrating < 1 or game_addrating > 100:
@@ -143,7 +143,7 @@ def index():
         number = int(number)
         number -=1
         
-        #Select the game and add it to the database.
+        # select the game and add it to the database.
         game_add = jsonuser[number]
         session_id = session["user_id"]
         addgame(game_add,session_id,game_addrating,game_addstatus)
@@ -161,7 +161,7 @@ def addgames():
         game_name = request.form.get("addgame")
         jsonuser = lookup(game_name)
         
-        #add a counter and a summary to the games.
+        # add a counter and a summary to the games.
         for game in jsonuser:
             game["counter"] = x
             if 'rating' not in game:
@@ -208,6 +208,7 @@ def completed():
     user_id = session["user_id"]
     games = get_games(user_id, "completed")
 
+    # sort games if user selected rating or alphabetical. else sort by date
     if request.form.get("sortgames") == "rating":
         games = sortrating(user_id, "completed")
         return render_template("completed.html", games = games)
@@ -222,7 +223,8 @@ def completed():
 def currently():
     user_id = session["user_id"]
     games = get_games(user_id, "current")
-
+    
+    # sort games if user selected rating or alphabetical. else sort by date
     if request.form.get("sortgames") == "rating":
         games = sortrating(user_id, "currently")
         return render_template("currently.html", games = games)
@@ -238,6 +240,7 @@ def dropped():
     user_id = session["user_id"]
     games = get_games(user_id,"dropped")
 
+    # sort games if user selected rating or alphabetical. else sort by date
     if request.form.get("sortgames") == "rating":
         games = sortrating(user_id, "dropped")
         return render_template("dropped.html", games = games)
@@ -253,6 +256,7 @@ def onhold():
     user_id = session["user_id"]
     games = get_games(user_id, "hold")
 
+    # sort games if user selected rating or alphabetical. else sort by date
     if request.form.get("sortgames") == "rating":
         games = sortrating(user_id, "onhold")
         return render_template("onhold.html", games = games)
@@ -268,6 +272,7 @@ def wishlist():
     user_id = session["user_id"]
     games = get_games(user_id, "wishlist")
 
+    # sort games if user selected rating or alphabetical. else sort by date
     if request.form.get("wishlist") == "rating":
         games = sortrating(user_id, "wishlist")
         return render_template("wishlist.html", games = games)
@@ -300,13 +305,13 @@ def send():
 @app.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
-
+   
     return render_template("account.html")
 
 @app.route("/delete", methods=["GET", "POST"])
 @login_required
 def delete():
-    #Run a script that deletes the account. This page is a page inbetween 2 pages and reders nothing.
+    # run a script that deletes the account. This page is a page inbetween 2 pages and reders nothing.
     user_id = session["user_id"]
     delete_account(user_id)
 
@@ -317,7 +322,8 @@ def delete():
 def deletegame():
     user_id = session["user_id"]
     games = get_games(user_id, "*")
-
+    
+    # run script that deletes game. page renders back to allgames
     for game in games:
         gamename = game["name"]
 

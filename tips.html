@@ -6,23 +6,28 @@
 
 {% block main %}
 <form action="{{ url_for('tip') }}" method="post">
-    <div class="error">
-        {{ error }}
-    </div>
+    <div class="text2">
 
-    <div>
-        <input autocomplete="off" autofocus class="input1" name="name" placeholder="Username" type="text"/>
-    </div>
+        <div class="error">
+            {{ error }}
+        </div>
+
+        <div>
+            <input autocomplete="off" autofocus class="input1" name="name" placeholder="Username" type="text"/>
+        </div>
 
 
-    <select class="input2" name="game_tip" required>
-        <option disabled selected value>Select game</option>
-        {%for game in json%}
-        <option value="{{game.name}}"data="{{game.name}}">{{game.name}}</option>
-        {%endfor%}
-    </select>
-    <div>
-        <button class="button" type="submit">Tip</button>
+        <select class="input2" name="game_tip" required>
+            <option disabled selected value>Select game</option>
+            {%for game in json%}
+            <option value="{{game.name}}"data="{{game.name}}">{{ game.name }}</option>
+            {%endfor%}
+        </select>
+
+        <div>
+            <button class="button" type="submit">Tip</button>
+        </div>
+
     </div>
 
     <h1>
@@ -48,10 +53,8 @@
 
             <tr><td><br/></td></tr>
             {%endfor%}
-
         </table>
-
     </div>
 </form>
 {% endblock %}
--
+

@@ -21,15 +21,15 @@
     <body>
         <div class="topnav">
             {% if session.user_id %}
-                   <a href="{{ url_for('addgames') }}">Add a game</a>
+                   <a href="{{ url_for('addgames') }}"><div class="plus">+</div></a>
                    <a href="{{ url_for('allgames') }}"><b>All Games</b></a>
                    <a href="{{ url_for('completed') }}"><b>Completed</b></a>
                    <a href="{{ url_for('currently') }}"><b>Current</b></a>
                    <a href="{{ url_for('onhold') }}"><b>Hold</b></a>
                    <a href="{{ url_for('dropped') }}"><b>Dropped</b></a>
                    <a href="{{ url_for('wishlist') }}"><b>Wishlist</b></a>
-                   <a href="{{ url_for('search') }}"><b>Search user</b></a>
                    <a href="{{ url_for('tip') }}"><b>Tip a game</b></a>
+                   <a href="{{ url_for('search') }}"><img src = "static/search.png" width="20" height="20"> </a>
                    <a style="float: right" href="{{ url_for('logout') }}">Logout</a>
                    <a style="float: right"href="{{ url_for('account') }}">Account settings</a>
 

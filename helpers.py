@@ -23,6 +23,7 @@ def login_required(f):
     return decorated_function
 
 def lookup(name):
+    # get game data via database API by searching gamename
     url = 'https://api-v3.igdb.com/games/'
     headers = {'user-key': '663bdc9cdfcbb5aaae5a2a8a14b4d70a'}
     data = f'search "{name}"; fields name, rating, summary;'
@@ -32,6 +33,7 @@ def lookup(name):
     return r.json()
 
 def delete_account(user_id):
+    # delete user
     db.execute("DELETE FROM users WHERE id =:id", id = user_id)
     return "Done"
 
@@ -49,6 +51,7 @@ def check_register(username, email, password):
     return "Done"
 
 def addgame(game,user_id,rating,status):
+    # select game user searches. if no error add to database
     temp = db.execute("SELECT * FROM games WHERE user_id=:user_id AND name=:name", user_id=user_id, name=game["name"])
     if temp:
         return "error"
@@ -58,11 +61,13 @@ def addgame(game,user_id,rating,status):
 
 
 def get_games(user_id,status):
+    # select games if games in all games (*) or if it has a status
     if status == "*":
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id", user_id = user_id)
     else:
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status", user_id = user_id, status = status)
 
+    # give game a number and strip decimals in the rating
     i = 1
     for game in games:
         game["rating"] = str(game["rating"]).split('.')[0]
@@ -71,6 +76,7 @@ def get_games(user_id,status):
     return games
 
 def update_game(user_id, game, status, rating):
+    # update game if user changes userrating or status
     to_update = game["name"]
     if rating == None:
         rating = db.execute("SELECT rating FROM games WHERE user_id=:user_id AND name=:name", user_id=user_id, name=to_update)
@@ -83,9 +89,11 @@ def update_game(user_id, game, status, rating):
     return "Done"
 
 def remove_game(name, user_id):
+    # delete game from user's account
     db.execute("DELETE FROM games WHERE name=:name AND user_id=:user_id", name=name, user_id=user_id)
 
 def lookup_name(name):
+    # search user by username
     temp = db.execute("SELECT id FROM users WHERE username=:username", username=name)
     if temp == []:
         return None
@@ -93,11 +101,13 @@ def lookup_name(name):
         return temp
     
 def sortrating(user_id,status):
+    # order games via rating if game has a status or if it is in all games (*)
     if status == "*":
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id ORDER BY userrating DESC", user_id = user_id)
     else:
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status ORDER BY userrating DESC", user_id = user_id, status = status)
     
+    # give game a number and strip decimals in the rating
     i = 1
     for game in games:
         game["rating"] = str(game["rating"]).split('.')[0]
@@ -107,11 +117,13 @@ def sortrating(user_id,status):
     return games
 
 def sortalfa(user_id,status):
+    # order games via name if game has a status or if it is in all games (*)
     if status == "*":
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id ORDER BY name ASC", user_id = user_id)
     else:
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status ORDER BY name ASC", user_id = user_id, status = status)
     
+    # give game a number and strip decimals in the rating
     i = 1
     for game in games:
         game["rating"] = str(game["rating"]).split('.')[0]

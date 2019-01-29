@@ -120,3 +120,20 @@ def sortalfa(user_id,status):
         
     return games
 
+def tip_input(user_id,game,user_tip):
+    game_tip = game
+    username_tipper = db.execute("SELECT username FROM users WHERE id=:id", id=user_id)
+    username_tipper = username_tipper[0]["username"]
+
+    test_tip = db.execute("SELECT id FROM users WHERE username=:username", username=user_tip)
+    if test_tip == []:
+        return None
+    else:
+        username = user_tip
+        id = test_tip[0]["id"]
+        db.execute("INSERT INTO tips(username,id,game,username_tipper) VALUES (:username, :id, :game, :username_tipper)", username=username, id=id, game=game_tip, username_tipper=username_tipper)
+        return "Done"
+
+def get_tips(user_id):
+    games = db.execute("SELECT * FROM tips WHERE id=:id", id=user_id)
+    return games

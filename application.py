@@ -340,3 +340,26 @@ def search():
             return render_template("found.html", games = games, name = username, status = status)
     else:
         return render_template("search.html")
+
+    @app.route("/tip", methods=["GET", "POST"])
+@login_required
+def tip():
+    if request.method == "POST":
+        to_tip_name = request.form.get("name")
+        to_tip_game = request.form.get("game_tip")
+
+        user_id = session["user_id"]
+        games = get_tips(user_id)
+
+        tip = tip_input(user_id, to_tip_game, to_tip_name)
+        json = get_games(user_id, "*")
+
+        if tip == None:
+            return render_template("tips.html", games = games, json = json, error = "No user found for the tip to go to.")
+        else:
+            return render_template("tips.html", games = games, json = json)
+    else:
+        user_id = session["user_id"]
+        games = get_tips(user_id)
+        json = get_games(user_id, "*")
+        return render_template("tips.html", games = games, json = json)

@@ -220,3 +220,15 @@ h1{
     color: white;
 
 }
+
+.sort {
+    font-family:Tahoma;
+    font-size: 20px;
+    margin-top:5%;
+    text-align:center;
+    border-radius: 5px;
+    border: 2px solid #2F4F4F;
+    padding: 5px;
+
+}
+

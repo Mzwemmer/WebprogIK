@@ -382,3 +382,7 @@ def tip():
         games = get_tips(user_id)
         json = get_games(user_id, "*")
         return render_template("tips.html", games = games, json = json)
+    
+@app.route("/found", methods=["GET", "POST"])
+def found():
+    return render_template("found.html")

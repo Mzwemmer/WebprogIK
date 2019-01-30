@@ -5,6 +5,7 @@ from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 import smtplib, ssl
 import random
+import re
 
 from helpers import *
 
@@ -73,6 +74,10 @@ def register():
 
     # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
+        
+        addressToVerify = request.form.get("email")
+        match = re.match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', addressToVerify)
+        
         # ensure username was submitted
         if not request.form.get("username"):
             return render_template("register.html", error = "Provide an username.")
@@ -90,6 +95,9 @@ def register():
 
         elif "@" not in request.form.get("email"):
             return render_template("register.html", error = "Provide a valid email adress.")
+        
+        elif match == None:
+            return render_template("register.html", error = "Provide a valid email adress")
 
         # raise an error if the password and username dont match
         if request.form.get("password") != request.form.get("confirmation"):

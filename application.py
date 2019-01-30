@@ -185,15 +185,59 @@ def addgames():
 @app.route("/allgames", methods=["GET", "POST"])
 @login_required
 def allgames():
-    user_id = session["user_id"]
-    games = get_games(user_id, "*")
+    if request.method == "POST":
+        user_id = session["user_id"]
+        games = get_games(user_id, "*")
 
-    # message if user has added no games yet
-    if len(games) == 0:
-        message = "No games added yet. Click add games in the top left corner"
-        return render_template("allgames.html", message = message)
+        # message if user has added no games yet
+        if len(games) == 0:
+            message = "No games added yet. Click add games in the top left corner"
+            return render_template("allgames.html", message = message)
 
-    else:
+        found = 0
+        number = 0
+        for i in range(1,(len(games)+1)):
+            temp_status = "status_" + str(i)
+            game_updatestatus = request.form.get(temp_status)
+            if game_updatestatus != "select":
+                number = i
+                found = 1
+                break
+
+        for i in range(1,(len(games)+1)):
+            if found == 1:
+                break
+            temp_rating = "rating_" + str(i)
+            game_updaterating = request.form.get(temp_rating)
+            if game_updaterating:
+                number = i
+                found = 1
+                break
+
+        if found == 1:
+            temp_rating = "rating_" + str(number)
+            game_updaterating = request.form.get(temp_rating)
+
+        try:
+            game_updaterating = int(game_updaterating)
+            if game_updaterating < 1 or game_updaterating > 100:
+                game_addrating = None
+        except:
+            game_updaterating = None
+
+        number = int(number)
+        number -=1
+        if found == 0:
+            return render_template("allgames.html", games = games, error = "No game found that is supposed to be updated.")
+
+        # select the game and update it in the database.
+        game = games[number]
+        update = update_game(user_id, game, game_updatestatus, game_updaterating)
+
+        games = get_games(user_id, "*")
+        if update == "Done":
+            return render_template("allgames.html", games = games)
+
         # sort games if user selected rating or alphabetical. else sort by date
         if request.form.get("sortgames") == "rating":
             games = sortrating(user_id, "*")
@@ -203,6 +247,13 @@ def allgames():
             return render_template("allgames.html", games = games)
         else:
             return render_template("allgames.html", games = games)
+
+        games = get_games(user_id, "*")
+        return render_template("allgames.html", games = games, error = "Oops something went wrong.")
+    else:
+        user_id = session["user_id"]
+        games = get_games(user_id, "*")
+        return render_template("allgames.html", games = games)
 
 @app.route("/completed", methods=["GET", "POST"])
 @login_required

@@ -123,7 +123,7 @@ def index():
             if game_addstatus != "select":
                 number = str(i)
                 break
-
+     
         temp_status = "status_" + str(number)
         temp_score = "rating_" + str(number)
         game_addrating = request.form.get(temp_score)
@@ -198,6 +198,8 @@ def allgames():
 
         found = 0
         number = 0
+        
+        # try to find a game that has either a changed status or a changed rating
         for i in range(1,(len(games)+1)):
             temp_status = "status_" + str(i)
             game_updatestatus = request.form.get(temp_status)
@@ -215,20 +217,24 @@ def allgames():
                 number = i
                 found = 1
                 break
-
+        
+        # if a changed status is found before a changed score get the score
         if found == 1:
             temp_rating = "rating_" + str(number)
             game_updaterating = request.form.get(temp_rating)
-
+        
+        # make sure the score is valid
         try:
             game_updaterating = int(game_updaterating)
             if game_updaterating < 1 or game_updaterating > 100:
                 game_addrating = None
         except:
             game_updaterating = None
-
+       
         number = int(number)
         number -=1
+        
+        # if no change was found return an error
         if found == 0:
             return render_template("allgames.html", games = games, error = "No game found that is supposed to be updated.")
 
@@ -349,7 +355,9 @@ def forgotpasw():
         # ensure password was submitted
         elif not request.form.get("email"):
             return render_template("forgotpasw.html", error = "provide an e-mail adress")
-
+        
+        
+        # send an email to the user with a code
         username= request.form.get("username")
         email= request.form.get("email")
         valid = check(email,username)
@@ -395,7 +403,7 @@ def send():
         elif request.form.get("newpas") != request.form.get("newpas2"):
             return render_template("send.html", error = "Passwords do not match")
 
-
+        # make sure a valid password was provided and a valid code aswell
         newpassword= request.form.get("newpas")
         username=request.form.get("username")
         code=request.form.get("code")
@@ -413,7 +421,8 @@ def send():
 @login_required
 def account():
     if request.method == "POST":
-
+        
+        # check if either change password or another option is selected
         user_id = session["user_id"]
         if not request.form.get("new_pass") and not request.form.get("check_pass"):
             what = request.form.get("select")
@@ -501,10 +510,11 @@ def tip():
 
         user_id = session["user_id"]
         games = get_tips(user_id)
-
+        
+        # input the tip into the database
         tip = tip_input(user_id, to_tip_game, to_tip_name)
         json = get_games(user_id, "*")
-
+   
         if tip == None:
             return render_template("tips.html", games = games, json = json, error = "No user found for the tip to go to.")
         else:

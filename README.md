@@ -13,18 +13,18 @@ Wij gaan een site maken waarbij je je volledige bibliotheek van games kan opslaa
 https://drive.google.com/open?id=1PE0XpjZBI_ig9Iva6yK5tweieilO_ETK
 
 # Features
-Toegang tot een database(kunnen zoeken op games).
-De mogelijkheid om games op te zoeken.
-De mogelijkheid om een profiel aan te maken en in te loggen.
-De mogelijkheid om games op te slaan op je profiel.
-De mogelijkheid om games te sturen naar mensen als tips.
-De mogelijkheid om games uit te sorteren op 5 categorieën(currently playing, on hold, dropped, completed, wishlist)
-De mogelijkheid om je wachtwoord, username en email te veranderen.
-De mogelijkheid om games een cijfer te geven.
-De mogelijkheid om in de tabellen te sorteren op rating, op alfabetische volgorde en op datum/ tijdstip van toevoeging.
-De mogelijkheid om je account te verwijderen
-De mogelijkheid om andere mensen hun profiel te bekijken.
-De mogelijkheid om de status en persoonlijke rating van games te veranderen die je al in je bibliotheek staan
+* Toegang tot een database(kunnen zoeken op games).
+* De mogelijkheid om games op te zoeken.
+* De mogelijkheid om een profiel aan te maken en in te loggen.
+* De mogelijkheid om games op te slaan op je profiel.
+* De mogelijkheid om games te sturen naar mensen als tips.
+* De mogelijkheid om games uit te sorteren op 5 categorieën(currently playing, on hold, dropped, completed, wishlist)
+* De mogelijkheid om je wachtwoord, username en email te veranderen.
+* De mogelijkheid om games een cijfer te geven.
+* De mogelijkheid om in de tabellen te sorteren op rating, op alfabetische volgorde en op datum/ tijdstip van toevoeging.
+* De mogelijkheid om je account te verwijderen
+* De mogelijkheid om andere mensen hun profiel te bekijken.
+* De mogelijkheid om de status en persoonlijke rating van games te veranderen die je al in je bibliotheek staan
 
 # Taakverdeling
 Wij hebben het grootste gedeelte samen gedaan, waarbij iedereen wel aan alle delen van de site heeft gewerkt. Grofweg heeft Tim het meeste gedaan aan de css, Matthijs aan helpers.py en Carlos het meest aan application.py. De rest van de formatting ging in gezamenlijk overleg.

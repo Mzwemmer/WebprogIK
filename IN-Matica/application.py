@@ -213,6 +213,7 @@ def allgames():
         elif request.form.get("sortgames") == "date":
             return render_template("allgames.html", games=games)
 
+        # update game status
         found = 0
         number = 0
         for i in range(1, (len(games)+1)):
@@ -223,6 +224,7 @@ def allgames():
                 found = 1
                 break
 
+        #update game rating
         for i in range(1, (len(games)+1)):
             if found == 1:
                 break
@@ -244,6 +246,7 @@ def allgames():
         except:
             game_updaterating = None
 
+        # check if changes have been made
         number = int(number)
         number -= 1
         if found == 0:
@@ -368,7 +371,6 @@ def wishlist():
 
 @app.route("/forgotpasw", methods=["GET", "POST"])
 def forgotpasw():
-    # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
         if not request.form.get("username"):
@@ -411,6 +413,7 @@ def forgotpasw():
 @app.route("/send", methods=["GET", "POST"])
 def send():
     if request.method == "POST":
+        # check if inputs are valid
         if not request.form.get("username"):
             return render_template("send.html", error="Enter the username connected to your account")
         elif not request.form.get("newpas"):
@@ -455,6 +458,7 @@ def account():
             new = request.form.get("new_pass")
             check = request.form.get("check_pass")
 
+        # check if valid changes have been made
         if what == "select":
             return render_template("account.html", error="Please select what you want to change.")
 
@@ -475,7 +479,7 @@ def account():
 @app.route("/delete", methods=["GET", "POST"])
 @login_required
 def delete():
-    # run a script that deletes the account. This page is a page inbetween 2 pages and reders nothing.
+    # run a script that deletes the account. This page is a page inbetween 2 pages and renders nothing
     user_id = session["user_id"]
     delete_account(user_id)
 
@@ -504,7 +508,6 @@ def logout():
     # forget any user_id
     session.clear()
 
-    # redirect user to login form
     return redirect(url_for("login"))
 
 
@@ -512,9 +515,11 @@ def logout():
 @login_required
 def search():
     if request.method == "POST":
+        # find user and status
         username = request.form.get("namesearch")
         name = lookup_name(username)
         status = request.form.get("status")
+        # check if user exists, else show users games
         if name == None:
             return render_template("search.html", error="Username not found in the system")
         else:
@@ -541,6 +546,7 @@ def tip():
         tip = tip_input(user_id, to_tip_game, to_tip_name)
         json = get_games(user_id, "*")
 
+        # check if tip can be sent
         if tip == None:
             return render_template("tips.html", games=games, json=json, error="No user found for the tip to go to.")
         else:

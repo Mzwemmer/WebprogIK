@@ -102,7 +102,7 @@ def register():
         if check == "Done":
             return redirect(url_for("login"))
         else:
-            return render_template("register.html", error = "Oops something went wrong.")
+            return render_template("account.html", error = "Username/email has already been taken.")
 
     else:
         return render_template("register.html")

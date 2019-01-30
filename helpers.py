@@ -43,6 +43,7 @@ def delete_account(user_id):
 
 
 def check_register(username, email, password):
+    # check if the values the user is trying to submit for registration do not already exist in the database
     temp_email = db.execute("SELECT * FROM users WHERE email=:email", email=email)
     temp_username = db.execute("SELECT * FROM users WHERE username=:username", username=username)
     if len(temp_email) == 1:
@@ -83,6 +84,8 @@ def get_games(user_id, status):
 
 
 def update_game(user_id, game, status, rating):
+    
+    #update the userrating and the status in the table in all games
     to_update = game["name"]
 
     if rating == None or rating == "":
@@ -152,6 +155,8 @@ def sortalfa(user_id, status):
 
 
 def tip_input(user_id, game, user_tip):
+    
+    # create the table with all the tips other users have tipped
     game_tip = game
     username_tipper = db.execute("SELECT username FROM users WHERE id=:id", id=user_id)
     username_tipper = username_tipper[0]["username"]
@@ -167,11 +172,14 @@ def tip_input(user_id, game, user_tip):
 
 
 def get_tips(user_id):
+    #select all the games other users have tipped to the current user
     games = db.execute("SELECT * FROM tips WHERE id=:id", id=user_id)
     return games
 
 
 def change(user_id, what, new):
+    
+    # change email/username/password
     if what == "email":
         check = db.execute("SELECT * FROM users WHERE email=:email", email=new)
         if check == []:
@@ -189,6 +197,8 @@ def change(user_id, what, new):
 
 
 def check(email, username):
+    
+    # check if there is a combination of the inserted email and username
     valid = db.execute("SELECT email FROM users WHERE username=:username", username=username)
     valid = valid[0]["email"]
     if valid != email:
@@ -198,6 +208,8 @@ def check(email, username):
 
 
 def code(code):
+    
+    #generate a code for verifying the users email
     code = random.randint(1000000, 100000000)
     db.execute("UPDATE users SET code= :code WHERE username=:username and email=:email",
                code=code, username=request.form.get("username"), email=request.form.get("email"))
@@ -205,12 +217,16 @@ def code(code):
 
 
 def delete2(username):
+    
+    # delete the code from te database
     print("DELETING OLD CODE")
     db.execute("UPDATE users SET code=:code WHERE username=:username", code=0, username=username)
     return "Done"
 
 
 def update_password(newpassword, username, code):
+    
+    # check if the code inserted is the same as stored in the databse
     newcode = db.execute("SELECT code FROM users WHERE username=:username", username=username)
     newcode = newcode[0]["code"]
     if code != newcode or code == 0:

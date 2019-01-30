@@ -143,6 +143,8 @@ def tip_input(user_id,game,user_tip):
     username_tipper = db.execute("SELECT username FROM users WHERE id=:id", id=user_id)
     username_tipper = username_tipper[0]["username"]
     test_tip = db.execute("SELECT id FROM users WHERE username=:username", username=user_tip)
+    
+    # make sure that the user exists
     if test_tip == []:
         return None
     else:
@@ -156,6 +158,7 @@ def get_tips(user_id):
     return games
 
 def change(user_id,what,new):
+    # check what option is chosen and then make sure it does not already exists (only by email and username)
     if what == "email":
         check = db.execute("SELECT * FROM users WHERE email=:email", email=new)
         if check != []:
@@ -174,6 +177,7 @@ def change(user_id,what,new):
     return "Done"
 
 def check(email,username):
+    # check if the combination of email and user are correct
     valid = db.execute("SELECT email FROM users WHERE username=:username", username=username)
     valid = valid[0]["email"]
     if valid != email:
@@ -182,6 +186,7 @@ def check(email,username):
         return "Done"
 
 def code(code):
+    # generate a random code for the user te type in when trying to reset their password
     code = random.randint(1000000,100000000)
     db.execute("UPDATE users SET code= :code WHERE username=:username and email=:email", code=code, username= request.form.get("username"), email=request.form.get("email"))
     return code
@@ -191,6 +196,7 @@ def delete2(username):
     return "Done"
 
 def update_password(newpassword,username,code):
+    # make sure all the fields are correctly filled in and that the code is corrects
     newcode = db.execute("SELECT code FROM users WHERE username=:username", username=username)
     newcode = newcode[0]["code"]
     if code != newcode or code == 0:

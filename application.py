@@ -126,11 +126,11 @@ def index():
         temp_score = "rating_" + str(number)
         game_addrating = request.form.get(temp_score)
         game_addstatus = request.form.get(temp_status)
-        
+
         # when the for loop fails this returns an erro to show the user that they need to input a status for the game.
         if game_addstatus == None:
             return render_template("index.html", json=jsonuser, error = "Click on game info to input a status for the game you are trying to add.")
-        
+
         # check if the added game got a rating from the user if no rating was found or a wrong rating
         # make the rating equeal to None.
         try:
@@ -142,7 +142,7 @@ def index():
 
         number = int(number)
         number -=1
-        
+
         # select the game and add it to the database.
         game_add = jsonuser[number]
         session_id = session["user_id"]
@@ -160,7 +160,7 @@ def addgames():
         x=1
         game_name = request.form.get("addgame")
         jsonuser = lookup(game_name)
-        
+
         # add a counter and a summary to the games.
         for game in jsonuser:
             game["counter"] = x
@@ -173,7 +173,7 @@ def addgames():
             x+=1
 
         session['jsonsession'] = jsonuser
-           
+
         #Catch a search that has no return if so raise an error.
         if lookup(game_name) == []:
             return render_template("addgames.html", error = "The game you're looking for does not exist")
@@ -181,7 +181,7 @@ def addgames():
         return redirect(url_for("index"))
     else:
         return render_template("addgames.html")
-    
+
 @app.route("/allgames", methods=["GET", "POST"])
 @login_required
 def allgames():
@@ -276,7 +276,7 @@ def completed():
 def currently():
     user_id = session["user_id"]
     games = get_games(user_id, "current")
-    
+
     # sort games if user selected rating or alphabetical. else sort by date
     if request.form.get("sortgames") == "rating":
         games = sortrating(user_id, "currently")
@@ -382,6 +382,10 @@ def account():
         else:
             return render_template("account.html", error = "Oops something went wrong.")
 
+        return render_template("account.html")
+    else:
+        return render_template("account.html")
+
 @app.route("/delete", methods=["GET", "POST"])
 @login_required
 def delete():
@@ -396,7 +400,7 @@ def delete():
 def deletegame():
     user_id = session["user_id"]
     games = get_games(user_id, "*")
-    
+
     # run script that deletes game. page renders back to allgames
     for game in games:
         gamename = game["name"]
@@ -420,11 +424,9 @@ def logout():
 @login_required
 def search():
     if request.method == "POST":
-        # run script that searches username 
         username = request.form.get("namesearch")
         name = lookup_name(username)
         status = request.form.get("status")
-        # if user found, show user's games
         if name == None:
             return render_template("search.html", error = "Username not found in the system")
         else:
@@ -458,7 +460,7 @@ def tip():
         games = get_tips(user_id)
         json = get_games(user_id, "*")
         return render_template("tips.html", games = games, json = json)
-    
+
 @app.route("/found", methods=["GET", "POST"])
 def found():
     return render_template("found.html")

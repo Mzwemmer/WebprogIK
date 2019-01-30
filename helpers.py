@@ -155,10 +155,16 @@ def get_tips(user_id):
 
 def change(user_id,what,new):
     if what == "email":
+        check = db.execute("SELECT * FROM users WHERE email=:email", email=new)
+        if check == []:
+            return None
         db.execute("UPDATE users SET email=:email WHERE id=:id", email=new, id=user_id)
     if what == "password":
         db.execute("UPDATE users SET hash=:hash WHERE id=:id", hash=pwd_context.hash(new), id=user_id)
     if what == "username":
+        check = db.execute("SELECT * FROM users WHERE username=:username", username=new)
+        if check == []:
+            return None
         db.execute("UPDATE users SET username=:username WHERE id=:id", username=new, id=user_id)
 
     return "Done"

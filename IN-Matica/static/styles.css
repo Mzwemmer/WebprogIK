@@ -1,0 +1,273 @@
+body {
+    background-image: url("cs.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.button {
+    background-color: lightgray;
+    text-align: center;
+    font-size: 16px;
+    font-family:Tahoma;
+    margin: 5px 10px 10px 10px;
+    border-radius: 5px;
+    border: 2px solid #2F4F4F;
+
+}
+.logout {
+    float: right;
+    color: #f1f1f1;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 18px;
+    font-family:Tahoma;
+    text-decoration: none;
+
+}
+
+.input1{
+    font-family:Tahoma;
+    font-size: 20px;
+    margin: 10px 0px 20px 0px;
+    border-radius: 5px;
+    border: 2px solid #2F4F4F;
+    padding: 5px;
+
+}
+
+.input2 {
+    font-family:Tahoma;
+    font-size: 20px;
+    margin: 0px 0px 20px 0px;
+    border-radius: 5px;
+    border: 2px solid #2F4F4F;
+    padding: 5px;
+
+}
+
+.input3 {
+    font-family:Tahoma;
+    font-size: 14px;
+    margin: 0px 0px 20px 0px;
+    border-radius: 5px;
+    border: 2px solid #2F4F4F;
+    padding: 5px;
+    width: 80%;
+
+}
+
+.input4 {
+    font-family:Tahoma;
+    font-size: 14px;
+    margin: 0px 0px 20px 0px;
+    border-radius: 5px;
+    border: 2px solid #2F4F4F;
+    padding: 5px;
+    width: 40%;
+
+}
+.text {
+    font-family:Tahoma;
+    text-align:center;
+    color: white;
+    text-decoration:none
+
+}
+
+.text a {
+    color:grey;
+}
+
+.text2 {
+
+    margin-top:10%;
+    border-left: 20px solid rgba(0, 0, 0, 0.3);
+    border-right: 20px solid rgba(0, 0, 0, 0.3);
+    width: 20%;
+    text-align:center;
+    background-color: hsla(217, 50%, 30%, 0.5);
+    margin-left: 40%;
+
+}
+
+.text5 {
+
+    margin-top:1%;
+    border-left: 20px solid rgba(0, 0, 0, 0.3);
+    border-right: 20px solid rgba(0, 0, 0, 0.3);
+    width: 20%;
+    text-align:center;
+    background-color: hsla(217, 50%, 30%, 0.5);
+    margin-left: 40%;
+
+}
+
+
+.text3 {
+
+    font-family:Tahoma;
+    text-align:center;
+    color:white;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-decoration:none;
+}
+
+.text3 a {
+    color:grey;
+}
+
+
+.topnav {
+    background-color: hsla(217, 70%, 40%, 0.3);
+    overflow: hidden;
+}
+
+.topnav a {
+    float: left;
+    color: #f1f1f1;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 18px;
+    font-family:Tahoma;
+    text-decoration: none;
+}
+
+.topnav a:hover {
+    background-color: #1a3156;
+    color: white;
+
+}
+
+.topnav a:active {
+    background-color: #1a3156;
+}
+
+.addgames {
+    margin: 1% 0% 0% 15%;
+    border-left: 20px solid rgba(0, 0, 0, 0.3);
+    border-right: 20px solid rgba(0, 0, 0, 0.3);
+    width: 70%;
+    color:white;
+    background-color: hsla(217, 50%, 30%, 0.5);
+
+}
+
+.textaddgame {
+    font-family:Tahoma;
+    color: white;
+    text-align: left;
+    background-color: #0e1c33;
+}
+
+.textaddgame:hover {
+    background-color:#1a3156;
+}
+
+.titeladdgame {
+    font-family:Tahoma;
+    color: white;
+    font-size: 30px;
+}
+
+.disclaimer {
+    font-family:Tahoma;
+    color: #b2b2b2;
+    font-size: 10px;
+}
+
+.table1{
+    height: 80px;
+    font-size: 21px;
+    font-weight: bold;
+
+}
+
+.table{
+    height: 80px;
+    font-size: 15px;
+    text-align: center;
+
+}
+
+h1{
+    background-color: hsla(217, 50%, 30%, 0.5);
+    text-align : center;
+    font-weight: bold;
+    font-family:Tahoma;
+    color: white;
+}
+
+h3{
+    background-color: hsla(217, 50%, 30%, 0.5);
+    text-align : center;
+    font-weight: bold;
+    font-family:Tahoma;
+    color: white;
+}
+
+.top {
+    text-align:center;
+}
+
+.hide {
+    text-align:left;
+    background-color: #0e1c33;
+    display:none;
+}
+
+.delete{
+    background-color: #a8001c;
+    font-family:Tahoma;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    width: 99%;
+    border: 1px solid #a8001c;
+    border-radius: 5px;
+
+}
+
+.error{
+    font-family:Tahoma;
+    color: red;
+}
+
+.nogames{
+    font-family:Tahoma;
+    font-size: 14px;
+    margin-left:25%;
+    font-weight: bold;
+    color: #bdbec1;
+    padding: 15px 5px 15px 5px;
+}
+
+.image {
+    margin-left: 90%;
+    margin-top: 20%;
+}
+
+.plus{
+    font-family:Tahoma;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+
+}
+
+.sort {
+    font-family:Tahoma;
+    font-size: 20px;
+    margin-top:5%;
+    text-align:center;
+    border-radius: 5px;
+    border: 2px solid #2F4F4F;
+    padding: 5px;
+
+}
+

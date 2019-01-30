@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Tips
+{% endblock %}
+
+{% block main %}
+<form action="{{ url_for('tip') }}" method="post">
+    <div class="error">
+        {{ error }}
+    </div>
+    <div class="text5">
+        <h1> Tip a user</h1>
+        <div>
+            <input autocomplete="off" autofocus class="input1" name="name" placeholder="Username" type="text"/>
+        </div>
+
+        <select class="input4" name="game_tip" required>
+            <option disabled selected value>Select game</option>
+            {%for game in json%}
+            <option value="{{game.name}}"data="{{game.name}}">{{ game.name }}</option>
+            {%endfor%}
+        </select>
+
+        <div>
+            <button class="button" type="submit">Tip</button>
+        </div>
+
+    </div>
+
+    <h1>
+        Your tips
+    </h1>
+
+    <div class="addgames">
+        <table width="90%" align="center">
+
+            <tr class="titeladdgame">
+                <td> Tipped by </td>
+                <td> Game </td>
+                <td> Date</td>
+            </tr>
+
+            {%for game in games %}
+
+            <tr class="textaddgame">
+                <td class="table">{{ game.username_tipper }} </td>
+                <td class="table1">{{ game.game }}</td>
+                <td class="table">{{ game.date }}</td>
+            </tr>
+
+            <tr><td><br/></td></tr>
+            {%endfor%}
+        </table>
+    </div>
+</form>
+{% endblock %}
+

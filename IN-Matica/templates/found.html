@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Found games
+{% endblock %}
+
+{% block main %}
+<form action="{{ url_for('found') }}" method="post">
+
+    <h1>
+        Games that {{ name }} has on status: {{ status }}
+    </h1>
+
+    <div class="addgames">
+        <table width="90%" align="center">
+
+            <tr class="titeladdgame">
+                <td>    </td>
+                <td> Name </td>
+                <td> Rating </td>
+                <td> User Rating</td>
+            </tr>
+
+            {%for game in games %}
+
+            <tr class="textaddgame">
+                <td class="table">{{ game.counter }} </td>
+                <td class="table1">{{ game.name }}</td>
+                <td class="table">{{ game.rating }}</td>
+                <td class="table">{{ game.userrating }}</td>
+            </tr>
+
+            <tr><td><br/></td></tr>
+            {%endfor%}
+
+        </table>
+
+    </div>
+</form>
+{% endblock %}

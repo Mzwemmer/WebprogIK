@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block main %}
+
+    <form action="{{ url_for('search') }}" method="post">
+        <div class="text2">
+             ‏‏‎
+
+            <div class="error"> {{ error }}</div>
+            <div>
+                <input autocomplete="off" autofocus class="input1" name="namesearch" placeholder="Username" type="text"/>
+            </div>
+            <select class="input2" name="status">
+                                        <option value="*"> All games</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="current">Currently playing</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="dropped">Dropped</option>
+                                        <option value="wishlist">Wishlist</option>
+                                    </select>
+            <div>
+                <button class="button" type="submit">Lookup</button>
+            </div>
+        </div>
+    </form>
+
+
+{% endblock %}

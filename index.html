@@ -17,9 +17,11 @@
         <table width="90%" align="center">
             <thead>
                 <tr class="titeladdgame">
-                    <th>    </th>
-                    <th> Name </th>
-                    <th> Rating </th>
+                    <td width="5%"></td>
+                    <td width="55%"> Name </td>
+                    <td width="10%"> Rating </td>
+                    <td width="10%"></td>
+                    <td width="10%"></td>
                 </tr>
             </thead>
         </table>
@@ -28,23 +30,22 @@
                 <table width="90%" align="center">
                     <thead align="center">
 
-                        <tr class="textaddgame">
+                        <tr width="90%" class="textaddgame">
                             <td class="table" width="5%">{{ game.counter }} </button></td>
-                            <td class="table1" width="65%">{{ game.name }}</td>
-                            <td class="table" width="20%">{{ game.rating }}</td>
-                            <td class="table" width="5%">
+                            <td class="table1" width="55%">{{ game.name }}   </td>
+                            <td class="table" width="10%">{{ game.rating }}</td>
+                            <td class="table" width="10%"></td>
+                            <td class="table" width="10%">
                                 <label align="center" for="{{ game.counter }}" id = "info"></label>
-    				            <input type="button" value="Game Info" id="{{ game.counter }}" class="info-toggle" data-toggle="toggle">
+    				            <img src="static/down.png" width="35" height="25" value="Game Info" id="{{ game.counter }}" class="info-toggle" data-toggle="toggle">
                             </td>
-                            <td width="5%">
-                                <button class="button" type="submit">Add game</button>
-                            </td>
+
+
                         </tr>
                     </thead>
                     <tbody class="hide" id="info_{{ game.counter }}">
                         <tr>
-                            <td colspan="1"></td>
-                            <td colspan="3">
+                            <td colspan="2">
                                 <div>
                                 ‏‏‎
                                 </div>
@@ -55,9 +56,8 @@
                                 ‏‏‎
                                 </div>
                             </td>
-                            <td colspan="1"></td>
 
-                            <td>
+                            <td colspan="2">
                                 <div class="hide">Add to:</div>
                                     <select class="input2" name="status_{{ game.counter }}">
                                         <option value="select"> Select</option>
@@ -69,9 +69,12 @@
                                     </select>
                             </div>
                                 <div>
-                                   <input autocomplete="off" autofocus class="input2" name="rating_{{ game.counter }}" placeholder="Rating / 100 (optional)" type="number"/>
+                                   <input autocomplete="off" autofocus class="input3" name="rating_{{ game.counter }}" width="10px" placeholder="Rating / 100 (optional)" type="number"/>
                                 </div>
 
+                            </td>
+                            <td colspan="1">
+                                <button class="button" type="submit">Add game</button>
                             </td>
                         </tr>
                     </tbody>

@@ -37,8 +37,6 @@ body {
     border: 2px solid #2F4F4F;
     padding: 5px;
 
-
-
 }
 
 .input2 {
@@ -48,8 +46,10 @@ body {
     border-radius: 5px;
     border: 2px solid #2F4F4F;
     padding: 5px;
-    
- .input3 {
+  
+}
+
+.input3 {
     font-family:Tahoma;
     font-size: 14px;
     margin: 0px 0px 20px 0px;
@@ -173,6 +173,14 @@ body {
 }
 
 h1{
+    background-color: hsla(217, 50%, 30%, 0.5);
+    text-align : center;
+    font-weight: bold;
+    font-family:Tahoma;
+    color: white;
+}
+    
+h3{
     background-color: hsla(217, 50%, 30%, 0.5);
     text-align : center;
     font-weight: bold;

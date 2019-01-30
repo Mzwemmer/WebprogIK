@@ -76,15 +76,19 @@ def get_games(user_id,status):
     return games
 
 def update_game(user_id, game, status, rating):
-    # update game if user changes userrating or status
     to_update = game["name"]
-    if rating == None:
-        rating = db.execute("SELECT rating FROM games WHERE user_id=:user_id AND name=:name", user_id=user_id, name=to_update)
 
-    if status == None:
+    if rating == None or rating == "":
+        rating = db.execute("SELECT userrating FROM games WHERE user_id=:user_id AND name=:name", user_id=user_id, name=to_update)
+        rating = rating[0]["userrating"]
+
+    if status == "select":
         status = db.execute("SELECT status FROM games WHERE user_id=:user_id AND name=:name", user_id=user_id, name=to_update)
+        status = status[0]["status"]
 
-    selected_game = db.execute("UPDATE games(status,rating;) VALUES (:status,:rating", status=status,rating=rating)
+
+    db.execute("UPDATE games SET status=:status WHERE user_id=:user_id AND name=:name", status=status, user_id=user_id, name=to_update)
+    db.execute("UPDATE games SET userrating=:userrating WHERE user_id=:user_id AND name=:name", userrating=rating, user_id=user_id, name=to_update)
 
     return "Done"
 

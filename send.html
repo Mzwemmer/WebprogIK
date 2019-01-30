@@ -6,12 +6,27 @@
 
 {% block main %}
 
-    <form action="{{ url_for('login') }}" method="post">
+    <form action="{{ url_for('send') }}" method="post">
         <div class="text2">
              ‏‏‎
 
-            <div class="text">
-            A code was send to your e-mail adress
+            <div class="error">
+                {{ error }}
+            </div>
+            <div>
+                <input autocomplete="off" autofocus class="input1" name="username" placeholder="Username" type="text"/>
+            </div>
+            <div>
+                <input autocomplete="off" autofocus class="input1" name="newpas" placeholder="New Password" type="password"/>
+            </div>
+            <div>
+                <input class="input2" name="newpas2" placeholder="Repeat" type="password"/>
+            </div>
+            <div>
+            <div>
+                <input class="input2" name="code" placeholder="Code" type="code"/>
+            </div>
+                <button class="button" type="submit">Request</button>
             </div>
 
         </div>

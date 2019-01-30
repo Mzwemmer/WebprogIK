@@ -3,6 +3,8 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
+import smtplib, ssl
+import random
 
 from helpers import *
 
@@ -112,16 +114,27 @@ def register():
 @login_required
 def index():
     if request.method == "POST":
-        number = 0
-        #ga voor elk veld dat er bestaat kijken of er een verandering in de status is
-        for i in range(10):
-            game_addstatus = request.form.get("status_{i}")
-            if game_addstatus != "Select":
-                number = i
+        #Check for the game that has a changed status so it can be added.
+        number = str(0)
+        jsonuser = session.get('jsonsession')
+        for i in range(1,(len(jsonuser)+1)):
+            temp_status = "status_" + str(i)
+            game_addstatus = request.form.get(temp_status)
+            if game_addstatus != "select":
+                number = str(i)
                 break
 
-        #Kijk of er een rating is toegevoegd en zo ja voeg die toe.
-        game_addrating = request.form.get("rating_{number}")
+        temp_status = "status_" + str(number)
+        temp_score = "rating_" + str(number)
+        game_addrating = request.form.get(temp_score)
+        game_addstatus = request.form.get(temp_status)
+
+        #When the for loop fails this returns an erro to show the user that they need to input a status for the game.
+        if game_addstatus == None:
+            return render_template("index.html", json=jsonuser, error = "Click on game info to input a status for the game you are trying to add.")
+
+        #Check if the added game got a rating from the user if no rating was found or a wrong rating
+        #make the rating equeal to None.
         try:
             game_addrating = int(game_addrating)
             if game_addrating < 1 or game_addrating > 100:
@@ -129,11 +142,10 @@ def index():
         except:
             game_addrating = None
 
+        number = int(number)
         number -=1
-        game_addstatus = request.form.get("status_{number}")
-        
-        #Voeg de game toe aan de database
-        jsonuser = session.get('jsonsession')
+
+        #Select the game and add it to the database.
         game_add = jsonuser[number]
         session_id = session["user_id"]
         addgame(game_add,session_id,game_addrating,game_addstatus)
@@ -151,32 +163,46 @@ def addgames():
         game_name = request.form.get("addgame")
         jsonuser = lookup(game_name)
 
+        #add a counter and a summary to the games.
         for game in jsonuser:
             game["counter"] = x
             if 'rating' not in game:
                 game["rating"] = "Rating unknown"
+            if 'summary' not in game:
+                game["summary"] = "No summary known"
             x+=1
 
         session['jsonsession'] = jsonuser
 
+        #Catch a search that has no return if so raise an error.
         if lookup(game_name) == []:
             return render_template("addgames.html", error = "The game you're looking for does not exist")
 
         return redirect(url_for("index"))
     else:
         return render_template("addgames.html")
+
 @app.route("/allgames", methods=["GET", "POST"])
 @login_required
 def allgames():
     user_id = session["user_id"]
     games = get_games(user_id, "*")
 
-    if len(games) != 0:
-        return render_template("allgames.html", games = games)
-
-    else:
+    # message if user has added no games yet
+    if len(games) == 0:
         message = "No games added yet. Click add games in the top left corner"
         return render_template("allgames.html", message = message)
+
+    else:
+        # sort games if user selected rating or alphabetical. else sort by date
+        if request.form.get("sortgames") == "rating":
+            games = sortrating(user_id, "*")
+            return render_template("allgames.html", games = games)
+        elif request.form.get("sortgames") == "alfa":
+            games = sortalfa(user_id, "*")
+            return render_template("allgames.html", games = games)
+        else:
+            return render_template("allgames.html", games = games)
 
 @app.route("/completed", methods=["GET", "POST"])
 @login_required
@@ -184,7 +210,14 @@ def completed():
     user_id = session["user_id"]
     games = get_games(user_id, "completed")
 
-    return render_template("completed.html", games = games)
+    if request.form.get("sortgames") == "rating":
+        games = sortrating(user_id, "completed")
+        return render_template("completed.html", games = games)
+    elif request.form.get("sortgames") == "alfa":
+        games = sortalfa(user_id, "completed")
+        return render_template("completed.html", games = games)
+    else:
+        return render_template("completed.html", games = games)
 
 @app.route("/currently", methods=["GET", "POST"])
 @login_required
@@ -192,7 +225,14 @@ def currently():
     user_id = session["user_id"]
     games = get_games(user_id, "current")
 
-    return render_template("currently.html", games = games)
+    if request.form.get("sortgames") == "rating":
+        games = sortrating(user_id, "currently")
+        return render_template("currently.html", games = games)
+    elif request.form.get("sortgames") == "alfa":
+        games = sortalfa(user_id, "currently")
+        return render_template("currently.html", games = games)
+    else:
+        return render_template("currently.html", games = games)
 
 @app.route("/dropped", methods=["GET", "POST"])
 @login_required
@@ -200,7 +240,14 @@ def dropped():
     user_id = session["user_id"]
     games = get_games(user_id,"dropped")
 
-    return render_template("dropped.html", games = games)
+    if request.form.get("sortgames") == "rating":
+        games = sortrating(user_id, "dropped")
+        return render_template("dropped.html", games = games)
+    elif request.form.get("sortgames") == "alfa":
+        games = sortalfa(user_id, "dropped")
+        return render_template("dropped.html", games = games)
+    else:
+        return render_template("dropped.html", games = games)
 
 @app.route("/onhold", methods=["GET", "POST"])
 @login_required
@@ -208,7 +255,14 @@ def onhold():
     user_id = session["user_id"]
     games = get_games(user_id, "hold")
 
-    return render_template("onhold.html", games = games)
+    if request.form.get("sortgames") == "rating":
+        games = sortrating(user_id, "onhold")
+        return render_template("onhold.html", games = games)
+    elif request.form.get("sortgames") == "alfa":
+        games = sortalfa(user_id, "onhold")
+        return render_template("onhold.html", games = games)
+    else:
+        return render_template("onhold.html", games = games)
 
 @app.route("/wishlist", methods=["GET", "POST"])
 @login_required
@@ -216,23 +270,14 @@ def wishlist():
     user_id = session["user_id"]
     games = get_games(user_id, "wishlist")
 
-    return render_template("wishlist.html", games = games)
-
-@app.route("/forgotpasw", methods=["GET", "POST"])
-def forgotpasw():
-    # if user reached route via POST (as by submitting a form via POST)
-    if request.method == "POST":
-        # ensure username was submitted
-        if not request.form.get("username"):
-            return render_template("forgotpasw.html")
-
-        # ensure password was submitted
-        elif not request.form.get("email"):
-            return render_template("forgotpasw.html")
-
-        return render_template("send.html")
+    if request.form.get("wishlist") == "rating":
+        games = sortrating(user_id, "wishlist")
+        return render_template("wishlist.html", games = games)
+    elif request.form.get("sortgames") == "alfa":
+        games = sortalfa(user_id, "wishlist")
+        return render_template("wishlist.html", games = games)
     else:
-        return render_template("forgotpasw.html")
+        return render_template("wishlist.html", games = games)
 
 @app.route("/send", methods=["GET", "POST"])
 def send():
@@ -247,6 +292,7 @@ def account():
 @app.route("/delete", methods=["GET", "POST"])
 @login_required
 def delete():
+    #Run a script that deletes the account. This page is a page inbetween 2 pages and reders nothing.
     user_id = session["user_id"]
     delete_account(user_id)
 
@@ -262,3 +308,91 @@ def logout():
 
     # redirect user to login form
     return redirect(url_for("login"))
+
+@app.route("/search", methods=["GET", "POST"])
+@login_required
+def search():
+    if request.method == "POST":
+        username = request.form.get("namesearch")
+        name = lookup_name(username)
+        status = request.form.get("status")
+        if name == None:
+            return render_template("search.html", error = "Username not found in the system")
+        else:
+            name = name[0]
+            games = get_games(name["id"],status)
+            if status == "*":
+                status = "all games"
+            return render_template("found.html", games = games, name = username, status = status)
+    else:
+        return render_template("search.html")
+
+
+
+@app.route("/forgotpasw", methods=["GET", "POST"])
+def forgotpasw():
+    # if user reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
+
+        if not request.form.get("username"):
+            return render_template("forgotpasw.html")
+
+        # ensure password was submitted
+        elif not request.form.get("email"):
+            return render_template("forgotpasw.html")
+
+        username= request.form.get("username")
+        email= request.form.get("email")
+        valid = check(email,username)
+        if valid == None:
+            return render_template("forgotpasw.html", error = "Invalid email/username combination.")
+        else:
+            item = code(code)
+            port = 465  # For SSL
+            smtp_server = "smtp.gmail.com"
+            sender_email = "inmaticauser1@gmail.com"  # Enter your address
+            receiver_email = request.form.get("email")  # Enter receiver address
+            password = "maticain"
+            message = """\
+
+            If you did not do this, ignore this mail and/or block this adress.
+
+            For changing your password/email-adress;
+            Enter the following code on the In-Matica page: """ + str(item)
+
+
+            context = ssl.create_default_context()
+            with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+                server.login(sender_email, password)
+                server.sendmail(sender_email, receiver_email, message)
+
+        return render_template("send.html", error = "A code has been send to your e-mail adress")
+    else:
+        return render_template("forgotpasw.html")
+
+def change():
+    if request.method == "POST":
+        if not request.form.get("username"):
+            return render_template("send.html", error = "Enter the username connected to your account")
+        if not request.form.get("newpas"):
+            return render_template("send.html", error = "Provide a new password")
+        if not request.form.get("newpas2"):
+            return render_template("send.html", error = "Verify the password")
+        if not request.form.get("code"):
+            delete()
+            return render_template("forgotpasw.html", error = "Invalid code")
+
+        if request.form.get("newpas") != request.form.get("newpas2"):
+            return render_template("send.html", error = "Passwords do not match")
+
+
+        newpassword= request.form.get("newpas")
+        username=request.form.get("username")
+        code=request.form.get("code")
+        if update_password(newpassword,username,code) == None:
+            delete()
+            return render_template("forgotpasw.html", error = "Invalid code")
+        else:
+            delete()
+            return render_template("login.html")
+    return render_template("login.html")

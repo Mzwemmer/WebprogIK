@@ -358,8 +358,29 @@ def send():
 @app.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
-   
-    return render_template("account.html")
+    if request.method == "POST":
+
+        user_id = session["user_id"]
+        if request.form.get("password") and request.form.get("repeat_password"):
+            what = "password"
+            new = request.form.get("password")
+            check = request.form.get("repeat_password")
+        else:
+            what = request.form.get("select")
+            new = request.form.get("new")
+            check = request.form.get("check")
+
+        if what == "select":
+            return render_template("account.html", error = "Please select what you want to change.")
+
+        if new != check:
+            return render_template("account.html", error = "Please repeat your input correctly.")
+
+        check = change(user_id,what,new)
+        if check == "Done":
+            return render_template("account.html")
+        else:
+            return render_template("account.html", error = "Oops something went wrong.")
 
 @app.route("/delete", methods=["GET", "POST"])
 @login_required

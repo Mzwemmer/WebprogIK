@@ -415,14 +415,14 @@ def account():
     if request.method == "POST":
 
         user_id = session["user_id"]
-        if request.form.get("password") and request.form.get("repeat_password"):
-            what = "password"
-            new = request.form.get("password")
-            check = request.form.get("repeat_password")
-        else:
+        if not request.form.get("new_pass") and not request.form.get("check_pass"):
             what = request.form.get("select")
             new = request.form.get("new")
             check = request.form.get("check")
+        else:
+            what = "password"
+            new = request.form.get("new_pass")
+            check = request.form.get("check_pass")
 
         if what == "select":
             return render_template("account.html", error = "Please select what you want to change.")
@@ -434,7 +434,7 @@ def account():
         if check == "Done":
             return render_template("account.html")
         else:
-            return render_template("account.html", error = "Oops something went wrong.")
+            return render_template("account.html", error = "Username/email has already been taken.")
 
         return render_template("account.html")
     else:

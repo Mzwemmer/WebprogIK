@@ -103,21 +103,21 @@ def lookup_name(name):
         return None
     else:
         return temp
-    
+
 def sortrating(user_id,status):
     # order games via rating if game has a status or if it is in all games (*)
     if status == "*":
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id ORDER BY userrating DESC", user_id = user_id)
     else:
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status ORDER BY userrating DESC", user_id = user_id, status = status)
-    
+
     # give game a number and strip decimals in the rating
     i = 1
     for game in games:
         game["rating"] = str(game["rating"]).split('.')[0]
         game["counter"] = i
         i += 1
-        
+
     return games
 
 def sortalfa(user_id,status):
@@ -126,14 +126,14 @@ def sortalfa(user_id,status):
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id ORDER BY name ASC", user_id = user_id)
     else:
         games = db.execute("SELECT * FROM games WHERE user_id=:user_id AND status=:status ORDER BY name ASC", user_id = user_id, status = status)
-    
+
     # give game a number and strip decimals in the rating
     i = 1
     for game in games:
         game["rating"] = str(game["rating"]).split('.')[0]
         game["counter"] = i
         i += 1
-        
+
     return games
 
 def tip_input(user_id,game,user_tip):
@@ -152,14 +152,14 @@ def tip_input(user_id,game,user_tip):
 def get_tips(user_id):
     games = db.execute("SELECT * FROM tips WHERE id=:id", id=user_id)
     return games
-                                         
+
 def change(user_id,what,new):
     if what == "email":
-        db.execute("UPDATE users SET email=:email WHERE user_id=:user_id", email=new, user_id=user_id)
+        db.execute("UPDATE users SET email=:email WHERE id=:id", email=new, id=user_id)
     if what == "password":
-        db.execute("UPDATE users SET hash=:hash WHERE user_id=:user_id", hash=pwd_context.hash(new), user_id=user_id)
+        db.execute("UPDATE users SET hash=:hash WHERE id=:id", hash=pwd_context.hash(new), id=user_id)
     if what == "username":
-        db.execute("UPDATE users SET username=:username WHERE user_id=:user_id", username=new, user_id=user_id)
+        db.execute("UPDATE users SET username=:username WHERE id=:id", username=new, id=user_id)
 
-    return "Done"                                        
-                                      
+    return "Done"
+

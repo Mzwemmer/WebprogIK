@@ -185,7 +185,6 @@ def code(code):
     return code
 
 def delete2(username):
-    print("DELETING OLD CODE")
     db.execute("UPDATE users SET code=:code WHERE username=:username", code= 0 , username=username)
     return "Done"
 
@@ -195,7 +194,5 @@ def update_password(newpassword,username,code):
     if code != newcode or code == 0:
         return None
     else:
-        print("____ UPDATING HASH____")
-        print(username)
         db.execute("UPDATE users SET hash=:hash WHERE username=:username", hash=pwd_context.hash(newpassword), username=username)
         return "Done"

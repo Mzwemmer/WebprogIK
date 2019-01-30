@@ -399,9 +399,11 @@ def logout():
 @login_required
 def search():
     if request.method == "POST":
+        # run script that searches username 
         username = request.form.get("namesearch")
         name = lookup_name(username)
         status = request.form.get("status")
+        # if user found, show user's games
         if name == None:
             return render_template("search.html", error = "Username not found in the system")
         else:

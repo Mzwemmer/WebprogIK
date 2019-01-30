@@ -335,24 +335,76 @@ def wishlist():
     else:
         return render_template("wishlist.html", games = games)
 
+
 @app.route("/forgotpasw", methods=["GET", "POST"])
 def forgotpasw():
     # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
-        # ensure username was submitted
+
         if not request.form.get("username"):
-            return render_template("forgotpasw.html")
+            return render_template("forgotpasw.html", error = "Provide a username")
 
         # ensure password was submitted
         elif not request.form.get("email"):
-            return render_template("forgotpasw.html")
+            return render_template("forgotpasw.html", error = "provide an e-mail adress")
 
-        return render_template("send.html")
+        username= request.form.get("username")
+        email= request.form.get("email")
+        valid = check(email,username)
+        if valid == None:
+            return render_template("forgotpasw.html", error = "Invalid email/username combination.")
+        else:
+            item = code(code)
+            port = 465  # For SSL
+            smtp_server = "smtp.gmail.com"
+            sender_email = "inmaticauser1@gmail.com"  # Enter your address
+            receiver_email = request.form.get("email")  # Enter receiver address
+            password = "maticain"
+            message = """\
+
+            If you did not do this, ignore this mail and/or block this adress.
+
+            For changing your password/email-adress;
+            Enter the following code on the In-Matica page: """ + str(item)
+
+
+            context = ssl.create_default_context()
+            with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+                server.login(sender_email, password)
+                server.sendmail(sender_email, receiver_email, message)
+
+        return render_template("send.html", error = "A code has been send to your e-mail adress")
     else:
         return render_template("forgotpasw.html")
 
 @app.route("/send", methods=["GET", "POST"])
 def send():
+    if request.method == "POST":
+        if not request.form.get("username"):
+            return render_template("send.html", error = "Enter the username connected to your account")
+        elif not request.form.get("newpas"):
+            return render_template("send.html", error = "Provide a new password")
+        elif not request.form.get("newpas2"):
+            return render_template("send.html", error = "Verify the password")
+        elif not request.form.get("code"):
+            username= request.form.get("username")
+            delete2(username)
+            return render_template("forgotpasw.html", error = "Invalid code")
+        elif request.form.get("newpas") != request.form.get("newpas2"):
+            return render_template("send.html", error = "Passwords do not match")
+
+
+        newpassword= request.form.get("newpas")
+        username=request.form.get("username")
+        code=request.form.get("code")
+        if update_password(newpassword,username,code) == None:
+            username= request.form.get("username")
+            delete2(username)
+            return render_template("forgotpasw.html", error = "Invalid code")
+        else:
+            username= request.form.get("username")
+            delete2(username)
+            return render_template("login.html")
     return render_template("send.html")
 
 @app.route("/account", methods=["GET", "POST"])

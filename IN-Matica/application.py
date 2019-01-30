@@ -39,7 +39,6 @@ def login():
     # forget any user_id
     session.clear()
 
-    # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
         # ensure username was submitted
@@ -74,7 +73,6 @@ def register():
     # forget any user_id
     session.clear()
 
-    # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
         addressToVerify = request.form.get("email")

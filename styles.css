@@ -46,7 +46,7 @@ body {
     border-radius: 5px;
     border: 2px solid #2F4F4F;
     padding: 5px;
-  
+
 }
 
 .input3 {
@@ -60,6 +60,16 @@ body {
 
 }
 
+.input4 {
+    font-family:Tahoma;
+    font-size: 14px;
+    margin: 0px 0px 20px 0px;
+    border-radius: 5px;
+    border: 2px solid #2F4F4F;
+    padding: 5px;
+    width: 40%;
+
+}
 .text {
     font-family:Tahoma;
     text-align:center;
@@ -83,6 +93,19 @@ body {
     margin-left: 40%;
 
 }
+
+.text5 {
+
+    margin-top:1%;
+    border-left: 20px solid rgba(0, 0, 0, 0.3);
+    border-right: 20px solid rgba(0, 0, 0, 0.3);
+    width: 20%;
+    text-align:center;
+    background-color: hsla(217, 50%, 30%, 0.5);
+    margin-left: 40%;
+
+}
+
 
 .text3 {
 
@@ -179,7 +202,7 @@ h1{
     font-family:Tahoma;
     color: white;
 }
-    
+
 h3{
     background-color: hsla(217, 50%, 30%, 0.5);
     text-align : center;

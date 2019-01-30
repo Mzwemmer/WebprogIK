@@ -6,18 +6,16 @@
 
 {% block main %}
 <form action="{{ url_for('tip') }}" method="post">
-    <div class="text2">
-
-        <div class="error">
-            {{ error }}
-        </div>
-
+    <div class="error">
+        {{ error }}
+    </div>
+    <div class="text5">
+        <h1> Tip a user</h1>
         <div>
             <input autocomplete="off" autofocus class="input1" name="name" placeholder="Username" type="text"/>
         </div>
 
-
-        <select class="input2" name="game_tip" required>
+        <select class="input4" name="game_tip" required>
             <option disabled selected value>Select game</option>
             {%for game in json%}
             <option value="{{game.name}}"data="{{game.name}}">{{ game.name }}</option>

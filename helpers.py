@@ -163,3 +163,31 @@ def change(user_id,what,new):
 
     return "Done"
 
+def check(email,username):
+    valid = db.execute("SELECT email FROM users WHERE username=:username", username=username)
+    valid = valid[0]["email"]
+    if valid != email:
+        return None
+    else:
+        return "Done"
+
+def code(code):
+    code = random.randint(1000000,100000000)
+    db.execute("UPDATE users SET code= :code WHERE username=:username and email=:email", code=code, username= request.form.get("username"), email=request.form.get("email"))
+    return code
+
+def delete2(username):
+    print("DELETING OLD CODE")
+    db.execute("UPDATE users SET code=:code WHERE username=:username", code= 0 , username=username)
+    return "Done"
+
+def update_password(newpassword,username,code):
+    newcode = db.execute("SELECT code FROM users WHERE username=:username", username=username)
+    newcode = newcode[0]["code"]
+    if code != newcode or code == 0:
+        return None
+    else:
+        print("____ UPDATING HASH____")
+        print(username)
+        db.execute("UPDATE users SET hash=:hash WHERE username=:username", hash=pwd_context.hash(newpassword), username=username)
+        return "Done"

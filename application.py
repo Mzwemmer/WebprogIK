@@ -168,6 +168,8 @@ def addgames():
                 game["rating"] = "Rating unknown"
             if 'summary' not in game:
                 game["summary"] = "No summary known"
+            else:
+                game["rating"] = str(game["rating"]).split('.')[0]
             x+=1
 
         session['jsonsession'] = jsonuser

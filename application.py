@@ -3,7 +3,7 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
-import smtplib, ssl
+from smtplib import ssl
 import random
 import re
 
@@ -31,6 +31,7 @@ Session(app)
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///games.db")
 
+
 @app.route("/", methods=["GET", "POST"])
 def login():
     """Log user in."""
@@ -43,18 +44,18 @@ def login():
 
         # ensure username was submitted
         if not request.form.get("username"):
-            return render_template("login.html", error = "Provide a username")
+            return render_template("login.html", error="Provide a username")
 
         # ensure password was submitted
         elif not request.form.get("password"):
-            return render_template("login.html", error = "Must provide password")
+            return render_template("login.html", error="Must provide password")
 
         # query database for username
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
         # ensure username exists and password is correct
         if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
-            return render_template("login.html", error = "Username and/or Password incorrect")
+            return render_template("login.html", error="Username and/or Password incorrect")
 
         # remember which user has logged in
         session["user_id"] = rows[0]["id"]
@@ -66,6 +67,7 @@ def login():
     else:
         return render_template("login.html")
 
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user."""
@@ -74,34 +76,34 @@ def register():
 
     # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
-        
+
         addressToVerify = request.form.get("email")
         match = re.match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', addressToVerify)
-        
+
         # ensure username was submitted
         if not request.form.get("username"):
-            return render_template("register.html", error = "Provide an username.")
+            return render_template("register.html", error="Provide an username.")
 
         # ensure password was submitted
         elif not request.form.get("password"):
-            return render_template("register.html", error = "Provide a password")
+            return render_template("register.html", error="Provide a password")
 
         # ensure the password was re-entered
         elif not request.form.get("confirmation"):
-            return render_template("register.html", error = "Correctly repeat your password.")
+            return render_template("register.html", error="Correctly repeat your password.")
 
         elif not request.form.get("email"):
-            return render_template("register.html", error = "Provide an email adress.")
+            return render_template("register.html", error="Provide an email adress.")
 
         elif "@" not in request.form.get("email"):
-            return render_template("register.html", error = "Provide a valid email adress.")
-        
+            return render_template("register.html", error="Provide a valid email adress.")
+
         elif match == None:
-            return render_template("register.html", error = "Provide a valid email adress")
+            return render_template("register.html", error="Provide a valid email adress")
 
         # raise an error if the password and username dont match
         if request.form.get("password") != request.form.get("confirmation"):
-            return render_template("register.html", error = "Correctly repeat your password.")
+            return render_template("register.html", error="Correctly repeat your password.")
 
         username = request.form.get("username")
         email = request.form.get("email")
@@ -112,7 +114,7 @@ def register():
         if check == "Done":
             return redirect(url_for("login"))
         else:
-            return render_template("account.html", error = "Username/email has already been taken.")
+            return render_template("account.html", error="Username/email has already been taken.")
 
     else:
         return render_template("register.html")
@@ -125,13 +127,13 @@ def index():
         # check for the game that has a changed status so it can be added.
         number = str(0)
         jsonuser = session.get('jsonsession')
-        for i in range(1,(len(jsonuser)+1)):
+        for i in range(1, (len(jsonuser)+1)):
             temp_status = "status_" + str(i)
             game_addstatus = request.form.get(temp_status)
             if game_addstatus != "select":
                 number = str(i)
                 break
-     
+
         temp_status = "status_" + str(number)
         temp_score = "rating_" + str(number)
         game_addrating = request.form.get(temp_score)
@@ -139,7 +141,7 @@ def index():
 
         # when the for loop fails this returns an erro to show the user that they need to input a status for the game.
         if game_addstatus == None:
-            return render_template("index.html", json=jsonuser, error = "Click on game info to input a status for the game you are trying to add.")
+            return render_template("index.html", json=jsonuser, error="Click on game info to input a status for the game you are trying to add.")
 
         # check if the added game got a rating from the user if no rating was found or a wrong rating
         # make the rating equeal to None.
@@ -151,23 +153,24 @@ def index():
             game_addrating = None
 
         number = int(number)
-        number -=1
+        number -= 1
 
         # select the game and add it to the database.
         game_add = jsonuser[number]
         session_id = session["user_id"]
-        addgame(game_add,session_id,game_addrating,game_addstatus)
+        addgame(game_add, session_id, game_addrating, game_addstatus)
 
         return redirect(url_for("allgames"))
     else:
         jsonuser = session.get('jsonsession')
-        return render_template("index.html", json = jsonuser)
+        return render_template("index.html", json=jsonuser)
 
-@app.route("/addgames", methods=["GET","POST"])
+
+@app.route("/addgames", methods=["GET", "POST"])
 @login_required
 def addgames():
     if request.method == "POST":
-        x=1
+        x = 1
         game_name = request.form.get("addgame")
         jsonuser = lookup(game_name)
 
@@ -180,17 +183,18 @@ def addgames():
                 game["summary"] = "No summary known"
             else:
                 game["rating"] = str(game["rating"]).split('.')[0]
-            x+=1
+            x += 1
 
         session['jsonsession'] = jsonuser
 
-        #Catch a search that has no return if so raise an error.
+        # catch a search that has no return if so raise an error.
         if lookup(game_name) == []:
-            return render_template("addgames.html", error = "The game you're looking for does not exist")
+            return render_template("addgames.html", error="The game you're looking for does not exist")
 
         return redirect(url_for("index"))
     else:
         return render_template("addgames.html")
+
 
 @app.route("/allgames", methods=["GET", "POST"])
 @login_required
@@ -202,16 +206,16 @@ def allgames():
         # sort games if user selected rating or alphabetical. else sort by date
         if request.form.get("sortgames") == "rating":
             games = sortrating(user_id, "*")
-            return render_template("allgames.html", games = games)
+            return render_template("allgames.html", games=games)
         elif request.form.get("sortgames") == "alfa":
             games = sortalfa(user_id, "*")
-            return render_template("allgames.html", games = games)
+            return render_template("allgames.html", games=games)
         elif request.form.get("sortgames") == "date":
-            return render_template("allgames.html", games = games)
+            return render_template("allgames.html", games=games)
 
         found = 0
         number = 0
-        for i in range(1,(len(games)+1)):
+        for i in range(1, (len(games)+1)):
             temp_status = "status_" + str(i)
             game_updatestatus = request.form.get(temp_status)
             if game_updatestatus != "select":
@@ -219,7 +223,7 @@ def allgames():
                 found = 1
                 break
 
-        for i in range(1,(len(games)+1)):
+        for i in range(1, (len(games)+1)):
             if found == 1:
                 break
             temp_rating = "rating_" + str(i)
@@ -241,9 +245,9 @@ def allgames():
             game_updaterating = None
 
         number = int(number)
-        number -=1
+        number -= 1
         if found == 0:
-            return render_template("allgames.html", games = games, error = "No game found that is supposed to be updated.")
+            return render_template("allgames.html", games=games, error="No game found that is supposed to be updated.")
 
         # select the game and update it in the database.
         game = games[number]
@@ -251,14 +255,15 @@ def allgames():
 
         games = get_games(user_id, "*")
         if update == "Done":
-            return render_template("allgames.html", games = games)
+            return render_template("allgames.html", games=games)
 
         games = get_games(user_id, "*")
-        return render_template("allgames.html", games = games, error = "Oops something went wrong.")
+        return render_template("allgames.html", games=games, error="Oops something went wrong.")
     else:
         user_id = session["user_id"]
         games = get_games(user_id, "*")
-        return render_template("allgames.html", games = games)
+        return render_template("allgames.html", games=games)
+
 
 @app.route("/completed", methods=["GET", "POST"])
 @login_required
@@ -269,12 +274,13 @@ def completed():
     # sort games if user selected rating or alphabetical. else sort by date
     if request.form.get("sortgames") == "rating":
         games = sortrating(user_id, "completed")
-        return render_template("completed.html", games = games)
+        return render_template("completed.html", games=games)
     elif request.form.get("sortgames") == "alfa":
         games = sortalfa(user_id, "completed")
-        return render_template("completed.html", games = games)
+        return render_template("completed.html", games=games)
     else:
-        return render_template("completed.html", games = games)
+        return render_template("completed.html", games=games)
+
 
 @app.route("/currently", methods=["GET", "POST"])
 @login_required
@@ -285,28 +291,30 @@ def currently():
     # sort games if user selected rating or alphabetical. else sort by date
     if request.form.get("sortgames") == "rating":
         games = sortrating(user_id, "currently")
-        return render_template("currently.html", games = games)
+        return render_template("currently.html", games=games)
     elif request.form.get("sortgames") == "alfa":
         games = sortalfa(user_id, "currently")
-        return render_template("currently.html", games = games)
+        return render_template("currently.html", games=games)
     else:
-        return render_template("currently.html", games = games)
+        return render_template("currently.html", games=games)
+
 
 @app.route("/dropped", methods=["GET", "POST"])
 @login_required
 def dropped():
     user_id = session["user_id"]
-    games = get_games(user_id,"dropped")
+    games = get_games(user_id, "dropped")
 
     # sort games if user selected rating or alphabetical. else sort by date
     if request.form.get("sortgames") == "rating":
         games = sortrating(user_id, "dropped")
-        return render_template("dropped.html", games = games)
+        return render_template("dropped.html", games=games)
     elif request.form.get("sortgames") == "alfa":
         games = sortalfa(user_id, "dropped")
-        return render_template("dropped.html", games = games)
+        return render_template("dropped.html", games=games)
     else:
-        return render_template("dropped.html", games = games)
+        return render_template("dropped.html", games=games)
+
 
 @app.route("/onhold", methods=["GET", "POST"])
 @login_required
@@ -317,12 +325,13 @@ def onhold():
     # sort games if user selected rating or alphabetical. else sort by date
     if request.form.get("sortgames") == "rating":
         games = sortrating(user_id, "onhold")
-        return render_template("onhold.html", games = games)
+        return render_template("onhold.html", games=games)
     elif request.form.get("sortgames") == "alfa":
         games = sortalfa(user_id, "onhold")
-        return render_template("onhold.html", games = games)
+        return render_template("onhold.html", games=games)
     else:
-        return render_template("onhold.html", games = games)
+        return render_template("onhold.html", games=games)
+
 
 @app.route("/wishlist", methods=["GET", "POST"])
 @login_required
@@ -333,12 +342,12 @@ def wishlist():
     # sort games if user selected rating or alphabetical. else sort by date
     if request.form.get("wishlist") == "rating":
         games = sortrating(user_id, "wishlist")
-        return render_template("wishlist.html", games = games)
+        return render_template("wishlist.html", games=games)
     elif request.form.get("sortgames") == "alfa":
         games = sortalfa(user_id, "wishlist")
-        return render_template("wishlist.html", games = games)
+        return render_template("wishlist.html", games=games)
     else:
-        return render_template("wishlist.html", games = games)
+        return render_template("wishlist.html", games=games)
 
 
 @app.route("/forgotpasw", methods=["GET", "POST"])
@@ -347,19 +356,18 @@ def forgotpasw():
     if request.method == "POST":
 
         if not request.form.get("username"):
-            return render_template("forgotpasw.html", error = "Provide a username")
+            return render_template("forgotpasw.html", error="Provide a username")
 
         # ensure password was submitted
         elif not request.form.get("email"):
-            return render_template("forgotpasw.html", error = "provide an e-mail adress")
-        
-        
+            return render_template("forgotpasw.html", error="provide an e-mail adress")
+
         # send an email to the user with a code
-        username= request.form.get("username")
-        email= request.form.get("email")
-        valid = check(email,username)
+        username = request.form.get("username")
+        email = request.form.get("email")
+        valid = check(email, username)
         if valid == None:
-            return render_template("forgotpasw.html", error = "Invalid email/username combination.")
+            return render_template("forgotpasw.html", error="Invalid email/username combination.")
         else:
             item = code(code)
             port = 465  # For SSL
@@ -374,51 +382,52 @@ def forgotpasw():
             For changing your password/email-adress;
             Enter the following code on the In-Matica page: """ + str(item)
 
-
             context = ssl.create_default_context()
             with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
                 server.login(sender_email, password)
                 server.sendmail(sender_email, receiver_email, message)
 
-        return render_template("send.html", error = "A code has been send to your e-mail adress")
+        return render_template("send.html", error="A code has been send to your e-mail adress")
     else:
         return render_template("forgotpasw.html")
+
 
 @app.route("/send", methods=["GET", "POST"])
 def send():
     if request.method == "POST":
         if not request.form.get("username"):
-            return render_template("send.html", error = "Enter the username connected to your account")
+            return render_template("send.html", error="Enter the username connected to your account")
         elif not request.form.get("newpas"):
-            return render_template("send.html", error = "Provide a new password")
+            return render_template("send.html", error="Provide a new password")
         elif not request.form.get("newpas2"):
-            return render_template("send.html", error = "Verify the password")
+            return render_template("send.html", error="Verify the password")
         elif not request.form.get("code"):
-            username= request.form.get("username")
+            username = request.form.get("username")
             delete2(username)
-            return render_template("forgotpasw.html", error = "Invalid code")
+            return render_template("forgotpasw.html", error="Invalid code")
         elif request.form.get("newpas") != request.form.get("newpas2"):
-            return render_template("send.html", error = "Passwords do not match")
+            return render_template("send.html", error="Passwords do not match")
 
         # make sure a valid password was provided and a valid code aswell
-        newpassword= request.form.get("newpas")
-        username=request.form.get("username")
-        code=request.form.get("code")
-        if update_password(newpassword,username,code) == None:
-            username= request.form.get("username")
+        newpassword = request.form.get("newpas")
+        username = request.form.get("username")
+        code = request.form.get("code")
+        if update_password(newpassword, username, code) == None:
+            username = request.form.get("username")
             delete2(username)
-            return render_template("forgotpasw.html", error = "Invalid code")
+            return render_template("forgotpasw.html", error="Invalid code")
         else:
-            username= request.form.get("username")
+            username = request.form.get("username")
             delete2(username)
             return render_template("login.html")
     return render_template("send.html")
+
 
 @app.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
     if request.method == "POST":
-        
+
         # check if either change password or another option is selected
         user_id = session["user_id"]
         if not request.form.get("new_pass") and not request.form.get("check_pass"):
@@ -431,20 +440,21 @@ def account():
             check = request.form.get("check_pass")
 
         if what == "select":
-            return render_template("account.html", error = "Please select what you want to change.")
+            return render_template("account.html", error="Please select what you want to change.")
 
         if new != check:
-            return render_template("account.html", error = "Please repeat your input correctly.")
+            return render_template("account.html", error="Please repeat your input correctly.")
 
-        check = change(user_id,what,new)
+        check = change(user_id, what, new)
         if check == "Done":
             return render_template("account.html")
         else:
-            return render_template("account.html", error = "Username/email has already been taken.")
+            return render_template("account.html", error="Username/email has already been taken.")
 
         return render_template("account.html")
     else:
         return render_template("account.html")
+
 
 @app.route("/delete", methods=["GET", "POST"])
 @login_required
@@ -454,6 +464,7 @@ def delete():
     delete_account(user_id)
 
     return redirect(url_for("login"))
+
 
 @app.route("/deletegame", methods=["GET", "POST"])
 @login_required
@@ -480,6 +491,7 @@ def logout():
     # redirect user to login form
     return redirect(url_for("login"))
 
+
 @app.route("/search", methods=["GET", "POST"])
 @login_required
 def search():
@@ -488,15 +500,16 @@ def search():
         name = lookup_name(username)
         status = request.form.get("status")
         if name == None:
-            return render_template("search.html", error = "Username not found in the system")
+            return render_template("search.html", error="Username not found in the system")
         else:
             name = name[0]
-            games = get_games(name["id"],status)
+            games = get_games(name["id"], status)
             if status == "*":
                 status = "all games"
-            return render_template("found.html", games = games, name = username, status = status)
+            return render_template("found.html", games=games, name=username, status=status)
     else:
         return render_template("search.html")
+
 
 @app.route("/tip", methods=["GET", "POST"])
 @login_required
@@ -507,20 +520,21 @@ def tip():
 
         user_id = session["user_id"]
         games = get_tips(user_id)
-        
+
         # input the tip into the database
         tip = tip_input(user_id, to_tip_game, to_tip_name)
         json = get_games(user_id, "*")
-   
+
         if tip == None:
-            return render_template("tips.html", games = games, json = json, error = "No user found for the tip to go to.")
+            return render_template("tips.html", games=games, json=json, error="No user found for the tip to go to.")
         else:
-            return render_template("tips.html", games = games, json = json)
+            return render_template("tips.html", games=games, json=json)
     else:
         user_id = session["user_id"]
         games = get_tips(user_id)
         json = get_games(user_id, "*")
-        return render_template("tips.html", games = games, json = json)
+        return render_template("tips.html", games=games, json=json)
+
 
 @app.route("/found", methods=["GET", "POST"])
 def found():

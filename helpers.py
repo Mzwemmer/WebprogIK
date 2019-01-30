@@ -161,8 +161,10 @@ def change(user_id,what,new):
         if check == []:
             return None
         db.execute("UPDATE users SET email=:email WHERE id=:id", email=new, id=user_id)
+
     if what == "password":
         db.execute("UPDATE users SET hash=:hash WHERE id=:id", hash=pwd_context.hash(new), id=user_id)
+
     if what == "username":
         check = db.execute("SELECT * FROM users WHERE username=:username", username=new)
         if check == []:

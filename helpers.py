@@ -139,17 +139,7 @@ def sortalfa(user_id,status):
 def tip_input(user_id,game,user_tip):
     game_tip = game
     username_tipper = db.execute("SELECT username FROM users WHERE id=:id", id=user_id)
-    username_tipper = username_tipper[0]["username"]
-
-    def change(user_id,what,new):
-    if what == "email":
-        db.execute("UPDATE users SET email=:email WHERE user_id=:user_id", email=new, user_id=user_id)
-    if what == "password":
-        db.execute("UPDATE users SET hash=:hash WHERE user_id=:user_id", hash=pwd_context.hash(new), user_id=user_id)
-    if what == "username":
-        db.execute("UPDATE users SET username=:username WHERE user_id=:user_id", username=new, user_id=user_id)
-
-    return "Done"
+    username_tipper = username_tipper[0]["username"
     test_tip = db.execute("SELECT id FROM users WHERE username=:username", username=user_tip)
     if test_tip == []:
         return None
@@ -162,3 +152,14 @@ def tip_input(user_id,game,user_tip):
 def get_tips(user_id):
     games = db.execute("SELECT * FROM tips WHERE id=:id", id=user_id)
     return games
+                                         
+ def change(user_id,what,new):
+    if what == "email":
+        db.execute("UPDATE users SET email=:email WHERE user_id=:user_id", email=new, user_id=user_id)
+    if what == "password":
+        db.execute("UPDATE users SET hash=:hash WHERE user_id=:user_id", hash=pwd_context.hash(new), user_id=user_id)
+    if what == "username":
+        db.execute("UPDATE users SET username=:username WHERE user_id=:user_id", username=new, user_id=user_id)
+
+    return "Done"                                        
+                                      

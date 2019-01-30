@@ -191,15 +191,18 @@ def allgames():
         user_id = session["user_id"]
         games = get_games(user_id, "*")
 
-        # message if user has added no games yet
-        if len(games) == 0:
-            message = "No games added yet. Click add games in the top left corner"
-            return render_template("allgames.html", message = message)
+        # sort games if user selected rating or alphabetical. else sort by date
+        if request.form.get("sortgames") == "rating":
+            games = sortrating(user_id, "*")
+            return render_template("allgames.html", games = games)
+        elif request.form.get("sortgames") == "alfa":
+            games = sortalfa(user_id, "*")
+            return render_template("allgames.html", games = games)
+        elif request.form.get("sortgames") == "date":
+            return render_template("allgames.html", games = games)
 
         found = 0
         number = 0
-        
-        # try to find a game that has either a changed status or a changed rating
         for i in range(1,(len(games)+1)):
             temp_status = "status_" + str(i)
             game_updatestatus = request.form.get(temp_status)
@@ -217,24 +220,20 @@ def allgames():
                 number = i
                 found = 1
                 break
-        
-        # if a changed status is found before a changed score get the score
+
         if found == 1:
             temp_rating = "rating_" + str(number)
             game_updaterating = request.form.get(temp_rating)
-        
-        # make sure the score is valid
+
         try:
             game_updaterating = int(game_updaterating)
             if game_updaterating < 1 or game_updaterating > 100:
                 game_addrating = None
         except:
             game_updaterating = None
-       
+
         number = int(number)
         number -=1
-        
-        # if no change was found return an error
         if found == 0:
             return render_template("allgames.html", games = games, error = "No game found that is supposed to be updated.")
 
@@ -244,16 +243,6 @@ def allgames():
 
         games = get_games(user_id, "*")
         if update == "Done":
-            return render_template("allgames.html", games = games)
-
-        # sort games if user selected rating or alphabetical. else sort by date
-        if request.form.get("sortgames") == "rating":
-            games = sortrating(user_id, "*")
-            return render_template("allgames.html", games = games)
-        elif request.form.get("sortgames") == "alfa":
-            games = sortalfa(user_id, "*")
-            return render_template("allgames.html", games = games)
-        else:
             return render_template("allgames.html", games = games)
 
         games = get_games(user_id, "*")
